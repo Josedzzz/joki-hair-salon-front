@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 // define the type for the header props
 type LoginHeaderProps = {
   toggleCard: (cardName: string) => void;
@@ -5,27 +7,41 @@ type LoginHeaderProps = {
 };
 
 export default function LoginHeader({ toggleCard, card }: LoginHeaderProps) {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   /**
    * depends on the link selected give to the element diferent styles
    * @param link the selected cardName
    * @returns the tailwind classes to be added
    */
   const linkClasses = (link: string) =>
-    `hover:text-blue-400 font-bold text-sm sm:text-md md:text-lg transition duration-300 ease-in-out ${
+    `hover:text-red-400 font-bold text-sm sm:text-md md:text-lg transition duration-300 ease-in-out ${
       card === link
-        ? "border-b-2 border-blue-400 text-blue-400"
-        : "text-white hover:text-blue-400 font-bold text-sm sm:text-md md:text-lg"
+        ? "border-b-2 border-red-400 text-red-400"
+        : "text-custom-dark hover:text-red-400 font-bold text-sm sm:text-md md:text-lg"
     }`;
 
   return (
     <header className="mt-3 h-12 w-full flex justify-between items-center max-w-3xl mx-auto p-2">
       <div className="flex items-center space-x-1 gap-3">
-        <h1 className="text-xl sm:text-3xl md:text-4xl text-slate-50 font-bold">
+        <h1 className="text-xl sm:text-3xl md:text-4xl font-bold text-custom-dark">
           Joki Hair Salon
         </h1>
-        <i className="fa-solid fa-scissors text-xl sm:text-3xl md:text-4xl text-blue-400"></i>
+        <i className="fa-solid fa-scissors text-xl sm:text-3xl md:text-4xl text-red-400"></i>
       </div>
-      <nav className="space-x-4 sm:space-x-8">
+
+      <button
+        onClick={() => setMenuOpen(!menuOpen)}
+        className="block sm:hidden text-custom-dark focus:outline-none"
+      >
+        <i className="fa-solid fa-bars text-2xl"></i>
+      </button>
+
+      <nav
+        className={`${
+          menuOpen ? "block" : "hidden"
+        } sm:flex space-x-4 sm:space-x-8 absolute sm:relative top-16 sm:top-auto left-0 w-full sm:w-auto bg-custom-platinum sm:bg-transparent p-4 sm:p-0`}
+      >
         <a
           onClick={() => toggleCard("aboutus")}
           className={linkClasses("aboutus")}
