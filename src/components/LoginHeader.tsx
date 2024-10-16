@@ -15,10 +15,10 @@ export default function LoginHeader({ toggleCard, card }: LoginHeaderProps) {
    * @returns the tailwind classes to be added
    */
   const linkClasses = (link: string) =>
-    `hover:text-red-400 font-bold text-sm sm:text-md md:text-lg transition duration-300 ease-in-out ${
+    `hover:text-custom-silver text-sm sm:text-md md:text-lg transition duration-300 ease-in-out font-bold ${
       card === link
-        ? "border-b-2 border-red-400 text-red-400"
-        : "text-custom-dark hover:text-red-400 font-bold text-sm sm:text-md md:text-lg"
+        ? "border-b-2 border-custom-silver text-custom-silver"
+        : "text-custom-dark hover:text-custom-silver text-sm sm:text-md md:text-lg"
     }`;
 
   return (
@@ -27,7 +27,7 @@ export default function LoginHeader({ toggleCard, card }: LoginHeaderProps) {
         <h1 className="text-xl sm:text-3xl md:text-4xl font-bold text-custom-dark">
           Joki Hair Salon
         </h1>
-        <i className="fa-solid fa-scissors text-xl sm:text-3xl md:text-4xl text-red-400"></i>
+        <i className="fa-solid fa-scissors text-xl sm:text-3xl md:text-4xl text-custom-silver"></i>
       </div>
 
       <button
