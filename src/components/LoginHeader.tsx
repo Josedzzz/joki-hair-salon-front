@@ -15,7 +15,7 @@ export default function LoginHeader({ toggleCard, card }: LoginHeaderProps) {
    * @returns the tailwind classes to be added
    */
   const linkClasses = (link: string) =>
-    `hover:text-custom-silver text-sm sm:text-md md:text-lg transition duration-300 ease-in-out font-bold ${
+    `hover:text-custom-silver hover:scale-105 text-sm sm:text-md md:text-lg transition duration-300 ease-in-out font-bold ${
       card === link
         ? "border-b-2 border-custom-silver text-custom-silver"
         : "text-custom-dark hover:text-custom-silver text-sm sm:text-md md:text-lg"
