@@ -5,18 +5,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import LoginDashboard from "./components/LoginDashboard";
-import AdminDashboard from "./components/AdminDashboard";
 import UserDashboard from "./components/UserDashboard";
-
-/**
- * private route for the admin to navigate to it's dashboard
- * @param param0 the jsx element
- * @returns
- */
-function PrivateRouteAdmin({ children }: { children: JSX.Element }) {
-  const adminId = localStorage.getItem("adminId");
-  return adminId ? children : <Navigate to={"/login"} />;
-}
 
 /**
  * private route for the user to navigate to it's dashboard
@@ -42,14 +31,6 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Navigate to="/login" />} />
           <Route path="/login" element={<LoginDashboard />} />
-          <Route
-            path="/admin-dashboard"
-            element={
-              <PrivateRouteAdmin>
-                <AdminDashboard />
-              </PrivateRouteAdmin>
-            }
-          />
           <Route
             path="/user-dashboard"
             element={
