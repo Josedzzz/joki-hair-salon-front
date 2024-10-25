@@ -1,9 +1,34 @@
 import { useState } from "react";
+import { signUp } from "../services/loginService";
+import { useNavigate } from "react-router-dom";
 
 export default function SignupCard() {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+  const navigate = useNavigate();
+
+  /**
+   * handles the submission of the signUp event
+   * @param e the form submission event
+   */
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setMessage("");
+    try {
+      const response = await signUp({ email, username, password });
+      localStorage.setItem("userId", response.data);
+      setMessage(response.message);
+      navigate("/user-dashboard");
+    } catch (error) {
+      if (error instanceof Error) {
+        setMessage(error.message);
+      } else {
+        setMessage("An unexpected error occurred.");
+      }
+    }
+  };
 
   return (
     <main className="flex items-center justify-center min-h-[calc(100vh-4rem)] p-2">
@@ -14,7 +39,7 @@ export default function SignupCard() {
           </h1>
           <i className="fa-solid fa-user text-xl sm:text-3xl md:text-4xl text-custom-silver"></i>
         </div>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="mb-3">
             <label
               className="block text-custom-silver font-bold mb-1 text-sm"
@@ -72,6 +97,7 @@ export default function SignupCard() {
             </button>
           </div>
         </form>
+        {message && <p className="text-custom-silver text-center mt-4"></p>}
       </div>
     </main>
   );
