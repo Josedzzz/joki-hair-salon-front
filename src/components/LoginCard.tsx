@@ -1,9 +1,41 @@
 import { useState } from "react";
+import { login } from "../services/loginService";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginCard() {
+  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  /**
+   * handles the submission of the login event
+   * @param e the form submission event
+   */
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setMessage("");
+    try {
+      if (isAdmin) {
+        const response = await login({ username, password }, "admin");
+        localStorage.setItem("adminId", response.data);
+        setMessage(response.message);
+        navigate("/admin-dashboard");
+      } else {
+        const response = await login({ username, password }, "client");
+        localStorage.setItem("clientId", response.data);
+        setMessage(response.message);
+        navigate("/user-dashboard");
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        setMessage(error.message);
+      } else {
+        setMessage("An unexpected error occurred.");
+      }
+    }
+  };
 
   return (
     <main className="flex items-center justify-center min-h-[calc(100vh-4rem)] p-2">
@@ -14,7 +46,7 @@ export default function LoginCard() {
           </h1>
           <i className="fa-solid fa-arrow-right-to-bracket text-xl sm:text-3xl md:text-4xl text-custom-silver"></i>
         </div>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="mb-3">
             <label
               className="block text-custom-silver font-bold mb-1 text-sm"
@@ -46,6 +78,20 @@ export default function LoginCard() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
+          </div>
+          <div className="mb-6">
+            <label className="flex items-center text-custom-silver font-bold mb-2 cursor-pointer">
+              <input
+                type="checkbox"
+                className="h-4 w-4 rounded-md mr-2"
+                checked={isAdmin}
+                onChange={() => setIsAdmin(!isAdmin)}
+              />
+              <span className="flex items-center">
+                I am an admin{" "}
+                <i className="fa-solid fa-user-tie ml-2 text-custom-silver"></i>
+              </span>
+            </label>
           </div>
           <div className="flex items-center justify-between">
             <button
