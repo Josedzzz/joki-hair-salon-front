@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import LoginDashboard from "./components/LoginDashboard";
 import UserDashboard from "./components/UserDashboard";
+import AdminDashboard from "./components/AdminDashboard";
 
 /**
  * private route for the user to navigate to it's dashboard
@@ -36,6 +37,14 @@ export default function App() {
             element={
               <PrivateRouteUser>
                 <UserDashboard />
+              </PrivateRouteUser>
+            }
+          />
+          <Route
+            path="/admin-dashboard"
+            element={
+              <PrivateRouteUser>
+                <AdminDashboard />
               </PrivateRouteUser>
             }
           />
