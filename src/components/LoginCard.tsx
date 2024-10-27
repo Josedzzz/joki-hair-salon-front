@@ -10,6 +10,24 @@ export default function LoginCard() {
   const [isAdmin, setIsAdmin] = useState(false);
 
   /**
+   * Helper function to validate the admin username (at least 3 characters)
+   * @param username the username to be validate
+   * @returns
+   */
+  const validateUsername = (username: string) => {
+    return username.length >= 3;
+  };
+
+  /**
+   * Helper function to validate the password (at least 4 characters)
+   * @param password the password to be validate
+   * @returns
+   */
+  const validatePassword = (password: string) => {
+    return password.length >= 4;
+  };
+
+  /**
    * handles the submission of the login event
    * @param e the form submission event
    */
@@ -17,6 +35,16 @@ export default function LoginCard() {
     e.preventDefault();
     setMessage("");
     try {
+      // validation before submission
+      if (!validateUsername(username)) {
+        setMessage("Username must be at least 3 characters long");
+        return;
+      }
+      if (!validatePassword(password)) {
+        setMessage("Password must be at least 4 characters long");
+        return;
+      }
+
       if (isAdmin) {
         const response = await login({ username, password }, "admin");
         localStorage.setItem("adminId", response.data);
@@ -102,7 +130,9 @@ export default function LoginCard() {
             </button>
           </div>
         </form>
-        {message && <p className="text-custom-silver text-center mt-4"></p>}
+        {message && (
+          <p className="text-custom-silver text-center mt-4">{message}</p>
+        )}
       </div>
     </main>
   );

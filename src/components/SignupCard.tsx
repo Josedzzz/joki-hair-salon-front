@@ -10,6 +10,34 @@ export default function SignupCard() {
   const navigate = useNavigate();
 
   /**
+   * Helper function to validate the admin username (at least 3 characters)
+   * @param username the username to be validate
+   * @returns
+   */
+  const validateUsername = (username: string) => {
+    return username.length >= 3;
+  };
+
+  /**
+   * Helper function to validate the password (at least 4 characters)
+   * @param password the password to be validate
+   * @returns
+   */
+  const validatePassword = (password: string) => {
+    return password.length >= 4;
+  };
+
+  /**
+   * Helper function to validate the email format
+   * @param email the emial to be validate
+   * @returns
+   */
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  /**
    * handles the submission of the signUp event
    * @param e the form submission event
    */
@@ -17,6 +45,20 @@ export default function SignupCard() {
     e.preventDefault();
     setMessage("");
     try {
+      // validation before submission
+      if (!validateEmail(email)) {
+        setMessage("Please enter a valid email address");
+        return;
+      }
+      if (!validateUsername(username)) {
+        setMessage("Username must be at least 3 characters long");
+        return;
+      }
+      if (!validatePassword(password)) {
+        setMessage("Password must be at least 4 characters long");
+        return;
+      }
+
       const response = await signUp({ email, username, password });
       localStorage.setItem("userId", response.data);
       setMessage(response.message);
@@ -97,7 +139,9 @@ export default function SignupCard() {
             </button>
           </div>
         </form>
-        {message && <p className="text-custom-silver text-center mt-4"></p>}
+        {message && (
+          <p className="text-custom-silver text-center mt-4">{message}</p>
+        )}
       </div>
     </main>
   );
