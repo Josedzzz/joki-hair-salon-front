@@ -1,6 +1,19 @@
 import { useState } from "react";
 import { Employee, WorkSchedule } from "./AdminEmployee";
 
+enum Skills {
+  HAIRCUT = "Haircut",
+  COLORING = "Coloring",
+  BEARD = "Beard",
+  SHAMPOO = "Shampoo",
+  BLOW_DRY = "Blow Dry",
+  PERM = "Perm",
+  HIGHLIGHTS = "Highlights",
+  HAIR_TREATMENT = "Hair Treatment",
+  EXTENSIONS = "Extensions",
+  HAIRS_STRAIGHTENING = "Hair Straightening",
+}
+
 // Props interface for the component
 interface AdminEmployeeInfoProps {
   employee: Employee | null;
@@ -21,8 +34,21 @@ export default function AdminEmployeeInfo({
       THURSDAY: { startTime: "", endTime: "" },
       FRIDAY: { startTime: "", endTime: "" },
       SATURDAY: { startTime: "", endTime: "" },
+      SUNDAY: { startTime: "", endTime: "" },
     },
   );
+
+  /**
+   * handles the skills set stament
+   * @param skill the skill to add or delete
+   */
+  const toggleSkill = (skill: string) => {
+    setSkills((prevSkills) =>
+      prevSkills.includes(skill)
+        ? prevSkills.filter((s) => s !== skill)
+        : [...prevSkills, skill],
+    );
+  };
 
   return (
     <div className="bg-custom-platinum rounded-lg shadow-lg p-6 max-w-5xl mx-auto">
@@ -57,19 +83,20 @@ export default function AdminEmployeeInfo({
           <div className="mb-4">
             <label className="block text-custom-dark mb-2">
               <i className="fa-solid fa-wrench mr-1"></i> Skills
-              (comma-separated)
             </label>
-            <input
-              type="text"
-              className="bg-custom-white text-custom-dark w-full px-3 py-2 rounded-lg ring-2 ring-custom-dark focus:ring-custom-silver focus:outline-none"
-              placeholder="Enter skills"
-              value={skills.join(", ")}
-              onChange={(e) =>
-                setSkills(
-                  e.target.value.split(",").map((skill) => skill.trim()),
-                )
-              }
-            />
+            <div className="grid grid-cols-2 gap-2">
+              {Object.values(Skills).map((skill) => (
+                <label key={skill} className="flex items-center">
+                  <input
+                    type="checkbox"
+                    className="mr-2"
+                    checked={skills.includes(skill)}
+                    onChange={() => toggleSkill(skill)}
+                  />
+                  <span className="text-custom-dark">{skill}</span>
+                </label>
+              ))}
+            </div>
           </div>
 
           {/* Work Schedule Fields */}
@@ -81,6 +108,7 @@ export default function AdminEmployeeInfo({
               "THURSDAY",
               "FRIDAY",
               "SATURDAY",
+              "SUNDAY",
             ] as (keyof WorkSchedule)[]
           ).map((day) => (
             <div key={day} className="mb-4">
