@@ -33,6 +33,11 @@ interface CreateEmployeeCredentials {
   hireDate: string;
 }
 
+interface updateEmployeeCredentials {
+  completeName: string;
+  skills: string[];
+}
+
 export interface ApiResponseEmployee {
   status: string;
   message: string;
@@ -134,7 +139,7 @@ export const getEmployee = async (
 /**
  * Promise function that creates an employee
  * @param credentials the CreateEmployeeCredentials containing the employee info
- * @returns
+ * @returns the api response interface
  */
 export const createEmployee = async (
   credentials: CreateEmployeeCredentials,
@@ -167,6 +172,87 @@ export const createEmployee = async (
     }
   } catch (error) {
     console.error("Error creating the employee: ", error);
+    throw error;
+  }
+};
+
+/**
+ * Promise function that updates the employee info
+ * @param employeeId the id of the employee to update
+ * @param credentials the credentials of the employee to update
+ * @returns the api response interface
+ */
+export const updateEmployee = async (
+  employeeId: string,
+  credentials: updateEmployeeCredentials,
+): Promise<ApiResponse> => {
+  try {
+    const response = await fetch(
+      `http://localhost:8080/api/admin/update-employee/${employeeId}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(credentials),
+      },
+    );
+
+    if (!response.ok) {
+      // handle the error response
+      const errorResponse: ApiResponse = await response.json();
+      throw new Error(errorResponse.message);
+    }
+
+    // read the response
+    const successResponse: ApiResponse = await response.json();
+
+    if ("message" in successResponse) {
+      return successResponse;
+    } else {
+      throw new Error("Unexpected response format");
+    }
+  } catch (error) {
+    console.error("Error updating the employee: ", error);
+    throw error;
+  }
+};
+
+/**
+ * Promise function to delete an employee
+ * @param employeeId the id of the employee to delete
+ * @returns the api response interface with the message
+ */
+export const deleteEmployee = async (
+  employeeId: string,
+): Promise<ApiResponse> => {
+  try {
+    const response = await fetch(
+      `http://localhost:8080/api/admin/delete-employee/${employeeId}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    );
+
+    if (!response.ok) {
+      // handle the error response
+      const errorResponse: ApiResponse = await response.json();
+      throw new Error(errorResponse.message);
+    }
+
+    // read the response
+    const successResponse: ApiResponse = await response.json();
+
+    if ("message" in successResponse) {
+      return successResponse;
+    } else {
+      throw new Error("Unexpected response format");
+    }
+  } catch (error) {
+    console.error("Error deleting the employee: ", error);
     throw error;
   }
 };
