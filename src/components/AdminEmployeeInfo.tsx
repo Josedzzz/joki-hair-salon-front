@@ -42,6 +42,40 @@ export default function AdminEmployeeInfo({
   );
   const [message, setMesssage] = useState("");
 
+  /**
+   * function to validate that the employee name is at least 3 characters
+   * @param name the name to be validate
+   * @returns the boolean response
+   */
+  const validateName = (name: string) => {
+    return name.length >= 3;
+  };
+
+  /**
+   * Function to validate that the employee has at least one skill
+   * @param skills the list of skills
+   * @returns the boolean response
+   */
+  const validateSkills = (skills: string[]) => {
+    return skills.length >= 1;
+  };
+
+  /**
+   * Function to validate that at least one day in the schedule has a start and end time
+   * @returns true if at least one valid schedule exists, false otherwise
+   */
+  const validateWorkSchedule = () => {
+    const hasValidSchedule = Object.values(workSchedule).some(
+      (day) => day.startTime.trim() !== "" && day.endTime.trim() !== "",
+    );
+    return hasValidSchedule;
+  };
+
+  /**
+   * Format the current workSchedule to the workSchedule structure for the request
+   * @param workSchedule the workSchedule to format
+   * @returns the formatted WorkSchedule
+   */
   const formatWorkSchedule = (workSchedule: WorkSchedule) => {
     return {
       workSchedule: {
@@ -57,10 +91,26 @@ export default function AdminEmployeeInfo({
   };
 
   /**
-   * hadles the submission for the create employee form
+   * Handles the submission for the create employee form
    */
   const handleCreateEmployee = async () => {
     setMesssage("");
+
+    // Validate the data before sending the form
+    if (!validateName(name)) {
+      setMesssage("The employee name must be at least 3 characters long.");
+      return;
+    }
+    if (!validateSkills(skills)) {
+      setMesssage("The employee must have at least one skill.");
+      return;
+    }
+    if (!validateWorkSchedule()) {
+      setMesssage(
+        "The employee schedule must include at least one day with a start and end time.",
+      );
+      return;
+    }
 
     const formattedWorkSchedule = formatWorkSchedule(workSchedule);
     const newEmployeeCredentials = {
