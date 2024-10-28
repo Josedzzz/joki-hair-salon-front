@@ -21,6 +21,7 @@ export interface WorkSchedule {
   THURSDAY: DaySchedule;
   FRIDAY: DaySchedule;
   SATURDAY: DaySchedule;
+  SUNDAY: DaySchedule;
 }
 
 export interface Employee {
