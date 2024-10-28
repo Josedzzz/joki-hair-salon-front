@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Employee, WorkSchedule } from "./AdminEmployee";
+import { createEmployee } from "../services/adminEmployeeService";
 
 enum Skills {
   HAIRCUT = "Haircut",
@@ -39,6 +40,53 @@ export default function AdminEmployeeInfo({
       SUNDAY: { startTime: "", endTime: "" },
     },
   );
+  const [message, setMesssage] = useState("");
+
+  const formatWorkSchedule = (workSchedule: WorkSchedule) => {
+    return {
+      workSchedule: {
+        MONDAY: workSchedule.MONDAY,
+        TUESDAY: workSchedule.TUESDAY,
+        WEDNESDAY: workSchedule.WEDNESDAY,
+        THURSDAY: workSchedule.THURSDAY,
+        FRIDAY: workSchedule.FRIDAY,
+        SATURDAY: workSchedule.SATURDAY,
+        SUNDAY: workSchedule.SUNDAY,
+      },
+    };
+  };
+
+  /**
+   * hadles the submission for the create employee form
+   */
+  const handleCreateEmployee = async () => {
+    setMesssage("");
+
+    const formattedWorkSchedule = formatWorkSchedule(workSchedule);
+    const newEmployeeCredentials = {
+      completeName: name,
+      workSchedule: formattedWorkSchedule,
+      skills: skills
+        .map((skill) =>
+          Object.keys(Skills).find(
+            (key) => Skills[key as keyof typeof Skills] === skill,
+          ),
+        )
+        .filter(Boolean) as string[],
+      hireDate: new Date().toISOString(),
+    };
+
+    try {
+      const response = await createEmployee(newEmployeeCredentials);
+      setMesssage(response.message);
+    } catch (error) {
+      if (error instanceof Error) {
+        setMesssage(error.message);
+      } else {
+        setMesssage("An unexpected error occurred.");
+      }
+    }
+  };
 
   /**
    * handles the skills set stament
@@ -174,12 +222,16 @@ export default function AdminEmployeeInfo({
             <button
               type="button"
               className="text-custom-dark font-bold p-2 border-4 border-custom-dark rounded-xl hover:bg-custom-dark hover:text-custom-white transition duration-300 ease-in-out transform hover:scale-105"
+              onClick={handleCreateEmployee}
             >
               <i className="fa-solid fa-plus mr-1"></i> Add Employee
             </button>
           )}
         </div>
       </form>
+      {message && (
+        <p className="text-custom-silver text-center mt-4">{message}</p>
+      )}
     </div>
   );
 }
