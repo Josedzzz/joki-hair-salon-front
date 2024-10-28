@@ -1,5 +1,18 @@
 import { EmployeeData } from "./AdminEmployee";
 
+enum Skills {
+  HAIRCUT = "Haircut",
+  COLORING = "Coloring",
+  BEARD = "Beard",
+  SHAMPOO = "Shampoo",
+  BLOW_DRY = "Blow Dry",
+  PERM = "Perm",
+  HIGHLIGHTS = "Highlights",
+  HAIR_TREATMENT = "Hair Treatment",
+  EXTENSIONS = "Extensions",
+  HAIRS_STRAIGHTENING = "Hair Straightening",
+}
+
 // interface for the props of the component
 interface AdminEmployeeCardProps {
   employee: EmployeeData;
@@ -10,6 +23,11 @@ export default function AdminEmployeeCard({
   employee,
   onClick,
 }: AdminEmployeeCardProps) {
+  // map each skill to its display value in the Skills enum
+  const formattedSkills = employee.skills
+    .map((skill) => Skills[skill as keyof typeof Skills] || skill)
+    .join(", ");
+
   return (
     <div
       onClick={onClick}
@@ -19,7 +37,7 @@ export default function AdminEmployeeCard({
         <h3 className="text-lg font-bold text-custom-dark mb-2">
           {employee.completeName}
         </h3>
-        <p className="text-custom-silver">{employee.skills.join(", ")}</p>
+        <p className="text-custom-silver">{formattedSkills}</p>
       </div>
     </div>
   );
