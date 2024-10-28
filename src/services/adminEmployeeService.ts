@@ -19,6 +19,20 @@ export interface WorkSchedule {
   SUNDAY: DaySchedule;
 }
 
+interface CreateEmployeeCredentials {
+  completeName: string;
+  workSchedule: {
+    workSchedule: {
+      [day: string]: {
+        startTime: string;
+        endTime: string;
+      };
+    };
+  };
+  skills: string[];
+  hireDate: string;
+}
+
 export interface ApiResponseEmployee {
   status: string;
   message: string;
@@ -113,6 +127,46 @@ export const getEmployee = async (
     }
   } catch (error) {
     console.error("Error obtaining the employee: ", error);
+    throw error;
+  }
+};
+
+/**
+ * Promise function that creates an employee
+ * @param credentials the CreateEmployeeCredentials containing the employee info
+ * @returns
+ */
+export const createEmployee = async (
+  credentials: CreateEmployeeCredentials,
+): Promise<ApiResponse> => {
+  try {
+    const response = await fetch(
+      `http://localhost:8080/api/admin/create-employee`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(credentials),
+      },
+    );
+
+    if (!response.ok) {
+      // handle the error response
+      const errorResponse: ApiResponse = await response.json();
+      throw new Error(errorResponse.message);
+    }
+
+    // read the response
+    const successResponse: ApiResponse = await response.json();
+
+    if ("message" in successResponse) {
+      return successResponse;
+    } else {
+      throw new Error("Unexpected response format");
+    }
+  } catch (error) {
+    console.error("Error creating the employee: ", error);
     throw error;
   }
 };
