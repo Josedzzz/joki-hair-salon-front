@@ -25,7 +25,9 @@ export default function AdminEmployeeInfo({
   onBack,
 }: AdminEmployeeInfoProps) {
   const [name, setName] = useState(employee?.completeName || "");
-  const [skills, setSkills] = useState(employee?.skills || []);
+  const initialSkills =
+    employee?.skills.map((skill) => Skills[skill as keyof typeof Skills]) || [];
+  const [skills, setSkills] = useState<string[]>(initialSkills);
   const [workSchedule, setWorkSchedule] = useState<WorkSchedule>(
     employee?.workSchedule?.workSchedule || {
       MONDAY: { startTime: "", endTime: "" },
