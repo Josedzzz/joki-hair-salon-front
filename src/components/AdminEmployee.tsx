@@ -25,6 +25,7 @@ export interface WorkSchedule {
 }
 
 export interface Employee {
+  employeeId: string;
   completeName: string;
   workSchedule: {
     workSchedule: WorkSchedule;
@@ -57,7 +58,11 @@ export default function AdminEmployee() {
   const handleSelectEmployee = async (employee: EmployeeData) => {
     try {
       const response = await getEmployee(employee.employeeId);
-      setSelectedEmployee(response.data);
+      const auxEmployee: Employee = {
+        ...response.data,
+        employeeId: employee.employeeId,
+      };
+      setSelectedEmployee(auxEmployee);
       setIsAddingNewEmployee(false);
     } catch (error) {
       console.error(error);
