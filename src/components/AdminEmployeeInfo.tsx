@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Employee, WorkSchedule } from "./AdminEmployee";
 import {
   createEmployee,
+  deleteEmployee,
   updateEmployee,
 } from "../services/adminEmployeeService";
 
@@ -189,6 +190,28 @@ export default function AdminEmployeeInfo({
   };
 
   /**
+   * handles the submission for the delete employee form
+   * @returns
+   */
+  const handleDeleteEmployee = async () => {
+    setMesssage("");
+    try {
+      if (!employee?.employeeId) {
+        setMesssage("The employee doesn't have an id");
+        return;
+      }
+      const response = await deleteEmployee(employee.employeeId);
+      setMesssage(response.message);
+    } catch (error) {
+      if (error instanceof Error) {
+        setMesssage(error.message);
+      } else {
+        setMesssage("An unexpected error occurred.");
+      }
+    }
+  };
+
+  /**
    * handles the skills set stament
    * @param skill the skill to add or delete
    */
@@ -315,6 +338,7 @@ export default function AdminEmployeeInfo({
               <button
                 type="button"
                 className="text-custom-dark font-bold p-2 border-4 border-custom-dark rounded-xl hover:bg-custom-dark hover:text-custom-white transition duration-300 ease-in-out transform hover:scale-105"
+                onClick={handleDeleteEmployee}
               >
                 <i className="fa-solid fa-trash mr-1"></i> Delete
               </button>
