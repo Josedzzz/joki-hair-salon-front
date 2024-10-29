@@ -230,7 +230,7 @@ export const deleteEmployee = async (
     const response = await fetch(
       `http://localhost:8080/api/admin/delete-employee/${employeeId}`,
       {
-        method: "DELETE",
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
