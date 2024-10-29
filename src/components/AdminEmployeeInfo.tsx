@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { Employee, WorkSchedule } from "./AdminEmployee";
-import { createEmployee } from "../services/adminEmployeeService";
+import {
+  createEmployee,
+  updateEmployee,
+} from "../services/adminEmployeeService";
 
 enum Skills {
   HAIRCUT = "Haircut",
@@ -139,6 +142,53 @@ export default function AdminEmployeeInfo({
   };
 
   /**
+   * handles the submission for the update employee form
+   * @returns
+   */
+  const handleUpdateEmployee = async () => {
+    setMesssage("");
+
+    // Validate the data before sending the form
+    if (!validateName(name)) {
+      setMesssage("The employee name must be at least 3 characters long.");
+      return;
+    }
+    if (!validateSkills(skills)) {
+      setMesssage("The employee must have at least one skill.");
+      return;
+    }
+
+    const newEmployeeCredentials = {
+      completeName: name,
+      skills: skills
+        .map((skill) =>
+          Object.keys(Skills).find(
+            (key) => Skills[key as keyof typeof Skills] === skill,
+          ),
+        )
+        .filter(Boolean) as string[],
+      hireDate: new Date().toISOString(),
+    };
+    try {
+      if (!employee?.employeeId) {
+        setMesssage("The employee doesn't have an id");
+        return;
+      }
+      const response = await updateEmployee(
+        employee?.employeeId,
+        newEmployeeCredentials,
+      );
+      setMesssage(response.message);
+    } catch (error) {
+      if (error instanceof Error) {
+        setMesssage(error.message);
+      } else {
+        setMesssage("An unexpected error occurred.");
+      }
+    }
+  };
+
+  /**
    * handles the skills set stament
    * @param skill the skill to add or delete
    */
@@ -258,6 +308,7 @@ export default function AdminEmployeeInfo({
               <button
                 type="button"
                 className="text-custom-dark font-bold p-2 border-4 border-custom-dark rounded-xl hover:bg-custom-dark hover:text-custom-white transition duration-300 ease-in-out transform hover:scale-105"
+                onClick={handleUpdateEmployee}
               >
                 <i className="fa-solid fa-share mr-1"></i> Update
               </button>
