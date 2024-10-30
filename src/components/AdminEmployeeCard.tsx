@@ -1,4 +1,4 @@
-import { EmployeeData } from "./AdminEmployee";
+import { Employee } from "../services/adminEmployeeService";
 
 enum Skills {
   HAIRCUT = "Haircut",
@@ -15,7 +15,7 @@ enum Skills {
 
 // interface for the props of the component
 interface AdminEmployeeCardProps {
-  employee: EmployeeData;
+  employee: Employee;
   onClick: () => void;
 }
 

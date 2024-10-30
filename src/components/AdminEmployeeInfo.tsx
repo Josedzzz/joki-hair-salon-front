@@ -1,5 +1,7 @@
 import { useState } from "react";
-import { Employee, WorkSchedule } from "./AdminEmployee";
+import { WorkSchedule } from "./AdminEmployee";
+import { Employee } from "../services/adminEmployeeService";
+
 import {
   createEmployee,
   deleteEmployee,
