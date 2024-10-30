@@ -1,9 +1,3 @@
-interface Employee {
-  employeeId: string;
-  completeName: string;
-  skills: string[];
-}
-
 interface DaySchedule {
   startTime: string;
   endTime: string;
@@ -17,6 +11,19 @@ export interface WorkSchedule {
   FRIDAY: DaySchedule;
   SATURDAY: DaySchedule;
   SUNDAY: DaySchedule;
+}
+
+export interface Employee {
+  employeeId: string;
+  completeName: string;
+  workSchedule: {
+    workSchedule: WorkSchedule;
+  };
+  skills: string[];
+  reviews: string[];
+  hireDate: string;
+  currentStatus: string;
+  appointments: string[];
 }
 
 interface CreateEmployeeCredentials {
@@ -38,22 +45,14 @@ interface updateEmployeeCredentials {
   skills: string[];
 }
 
-export interface ApiResponseEmployee {
-  status: string;
-  message: string;
-  data: {
-    completeName: string;
-    workSchedule: {
-      workSchedule: WorkSchedule;
-    };
-    skills: string[];
-  };
-}
-
 interface ApiResponseEmployees {
   status: string;
   message: string;
-  data: Employee[];
+  data: {
+    totalPages: number;
+    currentPage: number;
+    content: Employee[];
+  };
 }
 
 interface ApiResponse {
@@ -66,10 +65,12 @@ interface ApiResponse {
  * Promise function that gets all the employees
  * @returns the ApiResponseEmployees that gets some employees information
  */
-export const getAllEmployees = async (): Promise<ApiResponseEmployees> => {
+export const getAllEmployees = async (
+  page: number = 0,
+): Promise<ApiResponseEmployees> => {
   try {
     const response = await fetch(
-      `http://localhost:8080/api/admin/get-all-employees`,
+      `http://localhost:8080/api/admin/get-all-employees?page=${page}&size=8`,
       {
         method: "GET",
         headers: {
@@ -94,44 +95,6 @@ export const getAllEmployees = async (): Promise<ApiResponseEmployees> => {
     }
   } catch (error) {
     console.error("Error obtaining all the employees: ", error);
-    throw error;
-  }
-};
-
-/**
- * Promise function that gets an employee
- * @returns the ApiResponseEmployee
- */
-export const getEmployee = async (
-  employeeId: string,
-): Promise<ApiResponseEmployee> => {
-  try {
-    const response = await fetch(
-      `http://localhost:8080/api/admin/get-employee-info/${employeeId}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      },
-    );
-
-    if (!response.ok) {
-      // handle the error response
-      const errorResponse: ApiResponse = await response.json();
-      throw new Error(errorResponse.message);
-    }
-
-    // read the response as a json
-    const successResponse: ApiResponseEmployee = await response.json();
-
-    if ("data" in successResponse) {
-      return successResponse;
-    } else {
-      throw new Error("Unexpected response format");
-    }
-  } catch (error) {
-    console.error("Error obtaining the employee: ", error);
     throw error;
   }
 };
