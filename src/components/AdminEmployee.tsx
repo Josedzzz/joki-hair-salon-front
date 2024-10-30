@@ -1,13 +1,7 @@
 import { useEffect, useState } from "react";
-import { getAllEmployees, getEmployee } from "../services/adminEmployeeService";
+import { getAllEmployees, Employee } from "../services/adminEmployeeService";
 import AdminEmployeeCard from "./AdminEmployeeCard";
 import AdminEmployeeInfo from "./AdminEmployeeInfo";
-
-export interface EmployeeData {
-  employeeId: string;
-  completeName: string;
-  skills: string[];
-}
 
 interface DaySchedule {
   startTime: string;
@@ -24,24 +18,15 @@ export interface WorkSchedule {
   SUNDAY: DaySchedule;
 }
 
-export interface Employee {
-  employeeId: string;
-  completeName: string;
-  workSchedule: {
-    workSchedule: WorkSchedule;
-  };
-  skills: string[];
-}
-
 export default function AdminEmployee() {
-  const [employeesToDisplay, setEmployeesToDisplay] = useState<EmployeeData[]>(
-    [],
-  );
+  const [employeesToDisplay, setEmployeesToDisplay] = useState<Employee[]>([]);
   const [selectedEmployee, setSelectedEmployee] = useState<Employee | null>(
     null,
   );
   const [isAddingNewEmployee, setIsAddingNewEmployee] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [totalPages, setTotalPages] = useState(1);
+  const [currentPage, setCurrentPage] = useState(0);
 
   /**
    * manage the states to add an employee
@@ -55,32 +40,43 @@ export default function AdminEmployee() {
    * manage the states to select an employee
    * @param employee the employee to select
    */
-  const handleSelectEmployee = async (employee: EmployeeData) => {
-    try {
-      const response = await getEmployee(employee.employeeId);
-      const auxEmployee: Employee = {
-        ...response.data,
-        employeeId: employee.employeeId,
-      };
-      setSelectedEmployee(auxEmployee);
-      setIsAddingNewEmployee(false);
-    } catch (error) {
-      console.error(error);
-    }
+  const handleSelectEmployee = async (employee: Employee) => {
+    setSelectedEmployee(employee);
+    setIsAddingNewEmployee(false);
   };
 
   /**
    * get all the employees
    */
-  const handleGetAllEmployes = async () => {
+  const handleGetAllEmployes = async (page: number = 0) => {
     setLoading(true);
     try {
-      const response = await getAllEmployees();
-      setEmployeesToDisplay(response.data);
+      const response = await getAllEmployees(page);
+      setEmployeesToDisplay(response.data.content);
+      setTotalPages(response.data.totalPages);
+      setCurrentPage(response.data.currentPage);
     } catch (error) {
       console.error(error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  /**
+   * handle next page
+   */
+  const handleNextPage = () => {
+    if (currentPage < totalPages - 1) {
+      handleGetAllEmployes(currentPage + 1);
+    }
+  };
+
+  /**
+   * handle previous page
+   */
+  const handlePreviousPage = () => {
+    if (currentPage > 0) {
+      handleGetAllEmployes(currentPage - 1);
     }
   };
 
@@ -102,6 +98,31 @@ export default function AdminEmployee() {
               className="w-50px text-custom-dark font-bold p-2 border-4 border-custom-dark rounded-xl hover:bg-custom-dark hover:text-custom-white transition duration-300 ease-in-out transform hover:scale-105"
             >
               <i className="fa-solid fa-plus"></i> Add a new Employee
+            </button>
+          </div>
+
+          <div className="mb-4 flex justify-between">
+            <button
+              onClick={handlePreviousPage}
+              disabled={loading || currentPage === 0}
+              className={`w-50px text-custom-dark font-bold p-2 border-4 border-custom-dark rounded-xl transition duration-300 ease-in-out transform hover:scale-105 ${
+                currentPage === 0
+                  ? "opacity-50 cursor-not-allowed"
+                  : "hover:bg-custom-dark hover:text-custom-white"
+              }`}
+            >
+              <i className="fa-solid fa-arrow-left"></i>
+            </button>
+            <button
+              onClick={handleNextPage}
+              disabled={loading || currentPage >= totalPages - 1}
+              className={`w-50px text-custom-dark font-bold p-2 border-4 border-custom-dark rounded-xl transition duration-300 ease-in-out transform hover:scale-105 ${
+                currentPage >= totalPages - 1
+                  ? "opacity-50 cursor-not-allowed"
+                  : "hover:bg-custom-dark hover:text-custom-white"
+              }`}
+            >
+              <i className="fa-solid fa-arrow-right"></i>
             </button>
           </div>
 
