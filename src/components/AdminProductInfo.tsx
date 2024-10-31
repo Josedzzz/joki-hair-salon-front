@@ -47,10 +47,106 @@ export default function AdminProductInfo({
   const [message, setMesssage] = useState("");
 
   /**
+   * validates that the product name is at least 3 chars
+   * @param name the name of the product
+   * @returns the boolean response
+   */
+  const validateName = (name: string) => {
+    return name.length >= 3;
+  };
+
+  /**
+   * validates that the product description is at least 10 chars
+   * @param description the description of the product
+   * @returns the boolean response
+   */
+  const validateDescription = (description: string) => {
+    return description.length >= 10;
+  };
+
+  /**
+   * validates that the product price is greater than 0
+   * @param price the price of the product
+   * @returns the boolean response
+   */
+  const validatePrice = (price: number) => {
+    return price > 0;
+  };
+
+  /**
+   * validates that the product quantity is greater or equal than 0
+   * @param quantity the quantity of the product
+   * @returns the boolean response
+   */
+  const validateStockQuantity = (quantity: number) => {
+    return quantity >= 0;
+  };
+
+  /**
+   * validate that the product at least has one category
+   * @param categories the categories of the product
+   * @returns the boolean response
+   */
+  const validateCategories = (categories: string[]) => {
+    return categories.length >= 1;
+  };
+
+  /**
+   * validate that the product brand at least has 3 chars
+   * @param brand the brand of the product
+   * @returns the boolean response
+   */
+  const validateBrand = (brand: string) => {
+    return brand.length >= 3;
+  };
+
+  /**
+   * validate that the product at least has one image
+   * @param categories the images of the product
+   * @returns the boolean response
+   */
+  const validateImages = (images: string[]) => {
+    return images.length >= 1;
+  };
+
+  /**
    * Handles the submission for the create product form
    */
   const handleCreateProduct = async () => {
     setMesssage("");
+
+    // validate the data before sending the form
+    if (!validateName(name)) {
+      setMesssage("The product name must be at least 3 characters long");
+      return;
+    }
+    if (!validateDescription(description)) {
+      setMesssage(
+        "The product description must be at least 10 characters long",
+      );
+      return;
+    }
+    if (!validatePrice(price)) {
+      setMesssage("The product price must be greater than 0");
+      return;
+    }
+    if (!validateStockQuantity(stockQuantity)) {
+      setMesssage("The product quantity must be 0 or greater");
+      return;
+    }
+    if (!validateCategories(categories)) {
+      setMesssage("The product must have at least one category");
+      return;
+    }
+    if (!validateBrand(brand)) {
+      setMesssage("The product brand must be at least 3 characters long");
+      return;
+    }
+    if (!validateImages(images)) {
+      setMesssage("The product must have at least one image");
+      return;
+    }
+
     const newProductCredentials = {
       name,
       description,
@@ -85,6 +181,39 @@ export default function AdminProductInfo({
    */
   const handleUpdateProduct = async () => {
     setMesssage("");
+
+    // validate the data before sending the form
+    if (!validateName(name)) {
+      setMesssage("The product name must be at least 3 characters long");
+      return;
+    }
+    if (!validateDescription(description)) {
+      setMesssage(
+        "The product description must be at least 10 characters long",
+      );
+      return;
+    }
+    if (!validatePrice(price)) {
+      setMesssage("The product price must be greater than 0");
+      return;
+    }
+    if (!validateStockQuantity(stockQuantity)) {
+      setMesssage("The product quantity must be 0 or greater");
+      return;
+    }
+    if (!validateCategories(categories)) {
+      setMesssage("The product must have at least one category");
+      return;
+    }
+    if (!validateBrand(brand)) {
+      setMesssage("The product brand must be at least 3 characters long");
+      return;
+    }
+    if (!validateImages(images)) {
+      setMesssage("The product must have at least one image");
+      return;
+    }
+
     const newProductCredentials = {
       name,
       description,
