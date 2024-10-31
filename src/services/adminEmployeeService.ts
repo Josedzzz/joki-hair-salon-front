@@ -20,10 +20,15 @@ export interface Employee {
     workSchedule: WorkSchedule;
   };
   skills: string[];
-  reviews: string[];
+  reviews: Review[];
   hireDate: string;
   currentStatus: string;
   appointments: string[];
+}
+
+interface Review {
+  comment: string;
+  rating: number;
 }
 
 interface CreateEmployeeCredentials {
