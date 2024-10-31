@@ -7,7 +7,7 @@ import UserTeam from "./UserTeam";
 
 export default function UserDashboard() {
   // state to set the content
-  const [content, setContent] = useState("home");
+  const [content, setContent] = useState("appointment");
 
   /**
    * change the window content
