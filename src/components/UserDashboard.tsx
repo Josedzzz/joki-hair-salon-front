@@ -1,7 +1,9 @@
 import { useState } from "react";
 import UserHeader from "./UserHeader";
-import UserHome from "./UserHome";
 import UserAppointment from "./UserAppointment";
+import UserHistory from "./UserHistory";
+import UserProducts from "./UserProducts";
+import UserTeam from "./UserTeam";
 
 export default function UserDashboard() {
   // state to set the content
@@ -18,8 +20,10 @@ export default function UserDashboard() {
   return (
     <div className="min-h-screen flex flex-col">
       <UserHeader toggleContent={toggleContent} content={content} />
-      {content === "home" && <UserHome />}
       {content === "appointment" && <UserAppointment />}
+      {content === "history" && <UserHistory />}
+      {content === "products" && <UserProducts />}
+      {content === "team" && <UserTeam />}
     </div>
   );
 }

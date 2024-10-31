@@ -35,16 +35,28 @@ export default function UserHeader({
 
       <nav className="sm:flex space-x-4 sm:space-x-8 absolute sm:relative top-16 sm:top-auto left-0 w-full sm:w-auto bg-custom-white sm:bg-transparent p-4 sm:p-0">
         <a
-          onClick={() => toggleContent("home")}
-          className={linkClasses("home")}
-        >
-          Home
-        </a>
-        <a
           onClick={() => toggleContent("appointment")}
           className={linkClasses("appointment")}
         >
           Appointment
+        </a>
+        <a
+          onClick={() => toggleContent("history")}
+          className={linkClasses("history")}
+        >
+          History
+        </a>
+        <a
+          onClick={() => toggleContent("products")}
+          className={linkClasses("products")}
+        >
+          Products
+        </a>
+        <a
+          onClick={() => toggleContent("team")}
+          className={linkClasses("team")}
+        >
+          Our team
         </a>
         <a
           onClick={() => navigate("/login")}
