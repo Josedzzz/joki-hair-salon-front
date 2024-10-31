@@ -326,6 +326,28 @@ export default function AdminEmployeeInfo({
           ))}
         </div>
 
+        {/* Reviews */}
+        {employee && employee.reviews && employee.reviews.length > 0 && (
+          <div className="mb-4">
+            <h3 className="text-lg font-semibold text-custom-dark mb-2">
+              Reviews
+            </h3>
+            <div className="space-y-4">
+              {employee.reviews.map((review, index) => (
+                <div
+                  key={index}
+                  className="bg-custom-white p-2 rounded-lg shadow border-2 border-custom-dark"
+                >
+                  <p className="text-custom-dark mb-1 font-medium">
+                    {review.comment}
+                  </p>
+                  <p className="text-custom-dark">Rating: {review.rating}/5</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* Buttons */}
         <div className="flex justify-between mt-6">
           {employee ? (
