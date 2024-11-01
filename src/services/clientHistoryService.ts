@@ -28,6 +28,12 @@ interface ApiResponseAppointments {
   };
 }
 
+interface ApiResponseEmployee {
+  status: string;
+  message: string;
+  data: Employee;
+}
+
 interface ApiResponse {
   status: string;
   message: string;
@@ -152,6 +158,45 @@ export const leaveReview = async (
     }
   } catch (error) {
     console.error("Error leaving the client's review: ", error);
+    throw error;
+  }
+};
+
+/**
+ * Promise function that gets the employee info
+ * @param employeeId the employee Id
+ * @returns the ApiResponseEmployee with the information about the employee
+ */
+export const getEmployee = async (
+  employeeId: string,
+): Promise<ApiResponseEmployee> => {
+  try {
+    const response = await fetch(
+      `http://localhost:8080/api/client/get-employee/${employeeId}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    );
+
+    if (!response.ok) {
+      // handle the error response
+      const errorResponse: ApiResponse = await response.json();
+      throw new Error(errorResponse.message);
+    }
+
+    const successResponse: ApiResponseEmployee = await response.json();
+
+    // checks that the json contains the data
+    if (successResponse.data) {
+      return successResponse;
+    } else {
+      throw new Error("Unexpected response format");
+    }
+  } catch (error) {
+    console.error("Error getting the employee info: ", error);
     throw error;
   }
 };
