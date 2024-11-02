@@ -1,4 +1,5 @@
 export interface Appointment {
+  appointmentId: string;
   clientId: string;
   employeeId: string;
   appointmentDateTime: string;
@@ -68,7 +69,7 @@ export const getAllClientAppointments = async (
 
     const successResponse: ApiResponseAppointments = await response.json();
 
-    if (!successResponse.data) {
+    if (successResponse.data) {
       return successResponse;
     } else {
       throw new Error("Unexpected response format");
@@ -132,7 +133,7 @@ export const leaveReview = async (
 ): Promise<ApiResponse> => {
   try {
     const response = await fetch(
-      `http://localhost:8080/api/client/${appointmentId}/leaveReview`,
+      `http://localhost:8080/api/client/${appointmentId}/leave-review`,
       {
         method: "POST",
         headers: {
@@ -142,7 +143,7 @@ export const leaveReview = async (
       },
     );
 
-    if (!response.ok) {
+    if (response.ok) {
       // handle the error response
       const errorResponse: ApiResponse = await response.json();
       throw new Error(errorResponse.message);
