@@ -1,5 +1,18 @@
 import { Appointment } from "../services/adminAppointmentService";
 
+enum Services {
+  HAIRCUT = "Haircut",
+  COLORING = "Coloring",
+  BEARD = "Beard",
+  SHAMPOO = "Shampoo",
+  BLOW_DRY = "Blow Dry",
+  PERM = "Perm",
+  HIGHLIGHTS = "Highlights",
+  HAIR_TREATMENT = "Hair Treatment",
+  EXTENSIONS = "Extensions",
+  HAIRS_STRAIGHTENING = "Hair Straightening",
+}
+
 // interface for the props of the component
 interface AdminAppointmentCardProps {
   appointment: Appointment;
@@ -40,9 +53,11 @@ export default function AdminAppointmentCard({
           </p>
           <p className="text-sm opacity-70">Status: {appointment.status}</p>
           <p className="text-sm opacity-70">Services:</p>
-          <ul className="list-disc pl-5 text-sm opacity-90">
-            {appointment.services.map((service, index) => (
-              <li key={index}>{service}</li>
+          <ul className="text-sm opacity-90">
+            {appointment.services.map((service) => (
+              <li key={service}>
+                {Services[service as keyof typeof Services] || service}
+              </li>
             ))}
           </ul>
         </div>

@@ -1,5 +1,18 @@
 import { Appointment } from "../services/clientHistoryService";
 
+enum Services {
+  HAIRCUT = "Haircut",
+  COLORING = "Coloring",
+  BEARD = "Beard",
+  SHAMPOO = "Shampoo",
+  BLOW_DRY = "Blow Dry",
+  PERM = "Perm",
+  HIGHLIGHTS = "Highlights",
+  HAIR_TREATMENT = "Hair Treatment",
+  EXTENSIONS = "Extensions",
+  HAIRS_STRAIGHTENING = "Hair Straightening",
+}
+
 // interface for the props of the component
 interface UserAppointmentCardProps {
   appointment: Appointment;
@@ -38,11 +51,13 @@ export default function UserAppointmentCard({
           <p className="text-xl font-semibold">
             ${appointment.price.toFixed(2)}
           </p>
-          <p className="text-sm opacity-70">Status: {appointment.status}</p>
-          <p className="text-sm opacity-70">Services:</p>
-          <ul className="list-disc pl-5 text-sm opacity-90">
-            {appointment.services.map((service, index) => (
-              <li key={index}>{service}</li>
+          <p className="text-sm">Status: {appointment.status}</p>
+          <p className="text-sm">Services:</p>
+          <ul className="text-sm opacity-90">
+            {appointment.services.map((service) => (
+              <li key={service}>
+                {Services[service as keyof typeof Services] || service}
+              </li>
             ))}
           </ul>
         </div>

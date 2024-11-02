@@ -6,6 +6,19 @@ import {
   leaveReview,
 } from "../services/clientHistoryService";
 
+enum Services {
+  HAIRCUT = "Haircut",
+  COLORING = "Coloring",
+  BEARD = "Beard",
+  SHAMPOO = "Shampoo",
+  BLOW_DRY = "Blow Dry",
+  PERM = "Perm",
+  HIGHLIGHTS = "Highlights",
+  HAIR_TREATMENT = "Hair Treatment",
+  EXTENSIONS = "Extensions",
+  HAIRS_STRAIGHTENING = "Hair Straightening",
+}
+
 // interface for the props of the component
 interface UserAppointmentInfoProps {
   appointment: Appointment;
@@ -150,9 +163,11 @@ export default function UserAppointmentInfo({
 
         <div className="mb-4 col-span-1 md:col-span-2">
           <label className="block text-custom-dark mb-2">Services</label>
-          <ul className="bg-custom-white text-custom-dark w-full px-3 py-2 rounded-lg ring-2 ring-custom-dark list-disc pl-5">
-            {appointment.services.map((service, index) => (
-              <li key={index}>{service}</li>
+          <ul className="bg-custom-white text-custom-dark w-full px-3 py-2 rounded-lg ring-2 ring-custom-dark">
+            {appointment.services.map((service) => (
+              <li key={service}>
+                {Services[service as keyof typeof Services] || service}
+              </li>
             ))}
           </ul>
         </div>
