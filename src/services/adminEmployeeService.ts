@@ -16,6 +16,7 @@ export interface WorkSchedule {
 export interface Employee {
   employeeId: string;
   completeName: string;
+  email: string;
   workSchedule: {
     workSchedule: WorkSchedule;
   };
@@ -33,6 +34,7 @@ interface Review {
 
 interface CreateEmployeeCredentials {
   completeName: string;
+  email: string;
   workSchedule: {
     workSchedule: {
       [day: string]: {
@@ -47,6 +49,7 @@ interface CreateEmployeeCredentials {
 
 interface updateEmployeeCredentials {
   completeName: string;
+  email: string;
   skills: string[];
 }
 

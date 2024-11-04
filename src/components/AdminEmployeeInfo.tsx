@@ -32,6 +32,7 @@ export default function AdminEmployeeInfo({
   onBack,
 }: AdminEmployeeInfoProps) {
   const [name, setName] = useState(employee?.completeName || "");
+  const [email, setEmail] = useState(employee?.email || "");
   const initialSkills =
     employee?.skills.map((skill) => Skills[skill as keyof typeof Skills]) || [];
   const [skills, setSkills] = useState<string[]>(initialSkills);
@@ -55,6 +56,16 @@ export default function AdminEmployeeInfo({
    */
   const validateName = (name: string) => {
     return name.length >= 3;
+  };
+
+  /**
+   * function to validate the email format
+   * @param email the email to validate
+   * @returns
+   */
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
   };
 
   /**
@@ -107,6 +118,10 @@ export default function AdminEmployeeInfo({
       setMesssage("The employee name must be at least 3 characters long.");
       return;
     }
+    if (validateEmail(email)) {
+      setMesssage("The employee email must be valid");
+      return;
+    }
     if (!validateSkills(skills)) {
       setMesssage("The employee must have at least one skill.");
       return;
@@ -121,6 +136,7 @@ export default function AdminEmployeeInfo({
     const formattedWorkSchedule = formatWorkSchedule(workSchedule);
     const newEmployeeCredentials = {
       completeName: name,
+      email,
       workSchedule: formattedWorkSchedule,
       skills: skills
         .map((skill) =>
@@ -156,6 +172,10 @@ export default function AdminEmployeeInfo({
       setMesssage("The employee name must be at least 3 characters long.");
       return;
     }
+    if (validateEmail(email)) {
+      setMesssage("The employee email must be valid");
+      return;
+    }
     if (!validateSkills(skills)) {
       setMesssage("The employee must have at least one skill.");
       return;
@@ -163,6 +183,7 @@ export default function AdminEmployeeInfo({
 
     const newEmployeeCredentials = {
       completeName: name,
+      email,
       skills: skills
         .map((skill) =>
           Object.keys(Skills).find(
@@ -240,20 +261,33 @@ export default function AdminEmployeeInfo({
       <form>
         {/* Two-column layout for the inputs */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {/* Name Field */}
-          <div className="mb-4">
-            <label className="block text-custom-dark mb-2">
-              <i className="fa-solid fa-user mr-1"></i> Name
-            </label>
-            <input
-              type="text"
-              className="bg-custom-white text-custom-dark w-full px-3 py-2 rounded-lg ring-2 ring-custom-dark focus:ring-custom-silver focus:outline-none"
-              placeholder="Enter employee name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-          </div>
+          <div>
+            <div className="mb-4">
+              <label className="block text-custom-dark mb-2">
+                <i className="fa-solid fa-user mr-1"></i> Name
+              </label>
+              <input
+                type="text"
+                className="bg-custom-white text-custom-dark w-full px-3 py-2 rounded-lg ring-2 ring-custom-dark focus:ring-custom-silver focus:outline-none"
+                placeholder="Enter employee name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </div>
 
+            <div className="mb-4">
+              <label className="block text-custom-dark mb-2">
+                <i className="fa-solid fa-user mr-1"></i> Email
+              </label>
+              <input
+                type="text"
+                className="bg-custom-white text-custom-dark w-full px-3 py-2 rounded-lg ring-2 ring-custom-dark focus:ring-custom-silver focus:outline-none"
+                placeholder="Enter employee email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+          </div>
           {/* Skills Field */}
           <div className="mb-4">
             <label className="block text-custom-dark mb-2">
