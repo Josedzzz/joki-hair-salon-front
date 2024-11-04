@@ -18,7 +18,6 @@ enum Skills {
   HIGHLIGHTS = "Highlights",
   HAIR_TREATMENT = "Hair Treatment",
   EXTENSIONS = "Extensions",
-  HAIRS_STRAIGHTENING = "Hair Straightening",
 }
 
 // Props interface for the component
@@ -118,7 +117,7 @@ export default function AdminEmployeeInfo({
       setMesssage("The employee name must be at least 3 characters long.");
       return;
     }
-    if (validateEmail(email)) {
+    if (!validateEmail(email)) {
       setMesssage("The employee email must be valid");
       return;
     }
@@ -172,7 +171,7 @@ export default function AdminEmployeeInfo({
       setMesssage("The employee name must be at least 3 characters long.");
       return;
     }
-    if (validateEmail(email)) {
+    if (!validateEmail(email)) {
       setMesssage("The employee email must be valid");
       return;
     }
