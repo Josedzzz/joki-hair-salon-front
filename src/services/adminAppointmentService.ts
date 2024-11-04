@@ -1,4 +1,5 @@
 export interface Appointment {
+  appointmentId: string;
   clientId: string;
   employeeId: string;
   appointmentDateTime: string;

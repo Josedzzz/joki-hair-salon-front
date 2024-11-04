@@ -117,7 +117,7 @@ export default function AdminAppointment() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {appointmentsToDisplay.map((appointment) => (
               <AdminAppointmentCard
-                key={appointment.appointmentDateTime}
+                key={appointment.appointmentId}
                 appointment={appointment}
                 onClick={() => handleSelectAppointment(appointment)}
               />
