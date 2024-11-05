@@ -45,6 +45,7 @@ export default function UserAppointmentInfo({
   const [reviewComment, setReviewComment] = useState("");
   const [reviewRating, setReviewRating] = useState<number | null>(null);
   const [message, setMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   /**
    * validate that the review is at least 10 chars long
@@ -104,6 +105,7 @@ export default function UserAppointmentInfo({
    */
   const handleCancelAppointment = async () => {
     setMessage("");
+    setIsLoading(true);
     try {
       const response = await cancelAppointment(
         appointment.clientId,
@@ -116,6 +118,8 @@ export default function UserAppointmentInfo({
       } else {
         setMessage("An unexpected error occurred.");
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -230,10 +234,19 @@ export default function UserAppointmentInfo({
           </div>
         ) : (
           <button
-            className="text-custom-dark font-bold p-2 border-4 border-custom-dark rounded-xl hover:bg-custom-dark hover:text-custom-white transition duration-300 ease-in-out transform hover:scale-105"
             onClick={handleCancelAppointment}
+            disabled={isLoading}
+            className={`text-custom-dark font-bold p-2 border-4 border-custom-dark rounded-xl w-1/5 ${
+              isLoading
+                ? "bg-custom-dark text-custom-white cursor-not-allowed"
+                : "hover:bg-custom-dark hover:text-custom-white transition duration-300 ease-in-out transform hover:scale-105"
+            }`}
           >
-            Cancel Appointment
+            {isLoading ? (
+              <i className="fa fa-spinner fa-spin"></i>
+            ) : (
+              "Cancel Appointment"
+            )}
           </button>
         )}
       </div>
