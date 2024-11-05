@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { Product } from "../services/clientProductService";
+import { addProductToCart } from "../services/clientCartService";
 
 interface UserProductInfoProps {
   product: Product | null;
@@ -23,6 +25,35 @@ export default function UserProductInfo({
   product,
   onBack,
 }: UserProductInfoProps) {
+  const [quantity, setQuantity] = useState(1);
+  const [message, setMessage] = useState("");
+
+  /**
+   * Adds a product to the client's cart
+   */
+  const handleAddProductToCart = async () => {
+    setMessage("");
+    try {
+      const clientId = localStorage.getItem("clientId");
+      if (!clientId) {
+        setMessage("The client doesn't have an ID.");
+        return;
+      }
+      if (!product?.productId) {
+        setMessage("The product doesn't have an ID.");
+        return;
+      }
+      const response = await addProductToCart(clientId, {
+        productId: product?.productId,
+        quantity: quantity,
+      });
+      setMessage(response.message);
+    } catch (error) {
+      console.error(error);
+      setMessage("An error occurred while adding the product.");
+    }
+  };
+
   return (
     <div className="bg-custom-platinum rounded-lg shadow-lg p-6 max-w-5xl mx-auto">
       <button
@@ -95,9 +126,31 @@ export default function UserProductInfo({
         </div>
       </div>
 
-      <button className="mt-6 text-custom-dark font-bold p-2 border-4 border-custom-dark rounded-xl hover:bg-custom-dark hover:text-custom-white transition duration-300 ease-in-out transform hover:scale-105">
-        <i className="fa-solid fa-heart mr-1"></i> Add to Favorites
-      </button>
+      {/* Input for quantity */}
+      <div className="mt-6">
+        <label className="block text-custom-dark mb-2">Quantity</label>
+        <input
+          type="number"
+          value={quantity}
+          onChange={(e) => setQuantity(Number(e.target.value))}
+          min={1}
+          max={product?.stockQuantity || 1} // Set max to available stock
+          className="w-24 bg-custom-white text-custom-dark px-3 py-2 rounded-lg border border-custom-dark"
+        />
+
+        {/* Button to add to cart */}
+        <button
+          onClick={handleAddProductToCart}
+          className="ml-6 text-custom-dark font-bold p-2 border-4 border-custom-dark rounded-xl hover:bg-custom-dark hover:text-custom-white transition duration-300 ease-in-out transform hover:scale-105"
+        >
+          <i className="fa-solid fa-cart-plus mr-1"></i> Add to Cart
+        </button>
+      </div>
+
+      {/* Message display */}
+      {message && (
+        <p className="text-custom-silver text-center mt-4">{message}</p>
+      )}
     </div>
   );
 }
