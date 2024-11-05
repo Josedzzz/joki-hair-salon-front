@@ -9,6 +9,15 @@ interface SignupCredentials {
   password: string;
 }
 
+interface SendVerificationCodeCredentials {
+  email: string;
+}
+
+interface RecoverPasswordCredentials {
+  verificationCode: string;
+  newPassword: string;
+}
+
 interface ApiResponse {
   status: string;
   message: string;
@@ -93,6 +102,90 @@ export const login = async (
     }
   } catch (error) {
     console.error("Error during login:", error);
+    throw error;
+  }
+};
+
+/**
+ * Promise function that gets the response for the sended password code
+ * @param email the email where the recover code arrives
+ * @returns the response message
+ */
+export const sendRecoverPasswordCode = async (
+  credentials: SendVerificationCodeCredentials,
+): Promise<ApiResponse> => {
+  try {
+    const response = await fetch(
+      `http://localhost:8080/api/auth/send-password-reset-code`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(credentials),
+      },
+    );
+
+    if (!response.ok) {
+      // handle the error response
+      const errorResponse: ApiResponse = await response.json();
+      throw new Error(errorResponse.message);
+    }
+
+    // read the response as a json
+    const successResponse: ApiResponse = await response.json();
+
+    // checks that the json contains the response message
+    if ("message" in successResponse) {
+      return successResponse;
+    } else {
+      throw new Error("Unexpected response format");
+    }
+  } catch (error) {
+    console.error("Error sending the verification code", error);
+    throw error;
+  }
+};
+
+/**
+ * Promise function to get the response for the updated password
+ * @param credentials the credentials to updated the new password
+ * @returns the response interface with the message
+ */
+export const recoverPasswordCode = async (
+  email: string,
+  credentials: RecoverPasswordCredentials,
+): Promise<ApiResponse> => {
+  try {
+    console.log(email);
+    const response = await fetch(
+      `http://localhost:8080/api/auth/${email}/update-password`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(credentials),
+      },
+    );
+
+    if (!response.ok) {
+      // handle the error response
+      const errorResponse: ApiResponse = await response.json();
+      throw new Error(errorResponse.message);
+    }
+
+    // read the response as a json
+    const successResponse: ApiResponse = await response.json();
+
+    // checks that the json contains the response message
+    if ("message" in successResponse) {
+      return successResponse;
+    } else {
+      throw new Error("Unexpected response format");
+    }
+  } catch (error) {
+    console.error("Error during the recover:", error);
     throw error;
   }
 };

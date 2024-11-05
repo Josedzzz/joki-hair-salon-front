@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { login } from "../services/loginService";
 import { useNavigate } from "react-router-dom";
+import LoginRestoreCard from "./LoginRestoreCard";
 
 export default function LoginCard() {
   const navigate = useNavigate();
@@ -8,6 +9,7 @@ export default function LoginCard() {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
+  const [showRecoverPassword, setShowRecoverPassword] = useState(false);
 
   /**
    * Helper function to validate the admin username (at least 3 characters)
@@ -65,7 +67,9 @@ export default function LoginCard() {
     }
   };
 
-  return (
+  return showRecoverPassword ? (
+    <LoginRestoreCard />
+  ) : (
     <main className="flex items-center justify-center min-h-[calc(100vh-4rem)] p-2">
       <div className="w-full max-w-md bg-custom-white p-8 shadow-lg rounded-lg transform transition duration-500 ease-in-out hover:scale-105 hover:shadow-2xl">
         <div className="flex items-center space-x-1 gap-3 mb-2">
@@ -133,6 +137,16 @@ export default function LoginCard() {
         {message && (
           <p className="text-custom-silver text-center mt-4">{message}</p>
         )}
+
+        <p className="text-custom-dark text-sm text-center mt-6">
+          Forgot your password?{" "}
+          <span
+            className="text-custom-dark cursor-pointer"
+            onClick={() => setShowRecoverPassword(true)}
+          >
+            Click here
+          </span>
+        </p>
       </div>
     </main>
   );
