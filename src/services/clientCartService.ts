@@ -1,7 +1,7 @@
 export interface ProductCart {
   productName: string;
   totalPrice: number;
-  selectQty: number;
+  selectedQty: number;
   brandName: string;
 }
 
@@ -88,7 +88,7 @@ export const addProductToCart = async (
       },
     );
 
-    if (response.ok) {
+    if (!response.ok) {
       // handle the error response
       const errorResponse: ApiResponse = await response.json();
       throw new Error(errorResponse.message);
@@ -130,7 +130,7 @@ export const deleteProductFromCart = async (
       },
     );
 
-    if (response.ok) {
+    if (!response.ok) {
       // handle the error response
       const errorResponse: ApiResponse = await response.json();
       throw new Error(errorResponse.message);
