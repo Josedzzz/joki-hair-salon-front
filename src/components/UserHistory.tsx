@@ -18,6 +18,7 @@ export default function UserHistory() {
   const [loading, setLoading] = useState(false);
   const [totalPages, setTotalPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(0);
+  const [message, setMessage] = useState("");
 
   /**
    * handles the states to select an appointment
@@ -39,17 +40,32 @@ export default function UserHistory() {
    */
   const handleGetAllAppointments = async (page: number = 0) => {
     setLoading(true);
+    setMessage(""); // Clear any previous messages
     try {
       const clientId = localStorage.getItem("clientId");
       if (!clientId) {
+        setMessage("The client doesn't have an ID.");
         return;
       }
+
       const response = await getAllClientAppointments(page, clientId);
-      setAppointmentsToDisplay(response.data.content);
-      setTotalPages(response.data.totalPages);
-      setCurrentPage(response.data.currentPage);
+
+      // Verificar si response.data y response.data.content están definidos
+      const appointments = response.data?.content ?? [];
+      const total = response.data?.totalPages ?? 1;
+      const current = response.data?.currentPage ?? 0;
+
+      setAppointmentsToDisplay(appointments);
+      setTotalPages(total);
+      setCurrentPage(current);
+
+      // If no appointments, show a message
+      if (appointments.length === 0) {
+        setMessage("You have no appointments in your history.");
+      }
     } catch (error) {
       console.error(error);
+      setMessage("An error occurred while fetching appointments.");
     } finally {
       setLoading(false);
     }
@@ -114,13 +130,19 @@ export default function UserHistory() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {appointmentsToDisplay.map((appointment) => (
-              <UserAppointmentCard
-                key={appointment.appointmentDateTime}
-                appointment={appointment}
-                onClick={() => handleSelectAppointment(appointment)}
-              />
-            ))}
+            {appointmentsToDisplay.length > 0
+              ? appointmentsToDisplay.map((appointment) => (
+                  <UserAppointmentCard
+                    key={appointment.appointmentDateTime}
+                    appointment={appointment}
+                    onClick={() => handleSelectAppointment(appointment)}
+                  />
+                ))
+              : !loading && (
+                  <p className="text-custom-silver text-center mt-4">
+                    {message || "No appointments available."}
+                  </p>
+                )}
           </div>
 
           {loading && <p className="text-custom-dark">Loading...</p>}

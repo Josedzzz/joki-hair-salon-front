@@ -32,6 +32,7 @@ export default function UserAppointment() {
   const [selectedHour, setSelectedHour] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   /**
    * get all the availableHours given the start and end date
@@ -72,6 +73,7 @@ export default function UserAppointment() {
    * handle the appointment service
    */
   const handleBookAppointment = async () => {
+    setIsLoading(true);
     setMessage("");
     if (!selectedHour) {
       setMessage("Please select a date and hour for the appointment");
@@ -103,6 +105,8 @@ export default function UserAppointment() {
       } else {
         setMessage("An unexpected error occurred.");
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -228,9 +232,18 @@ export default function UserAppointment() {
         />
         <button
           onClick={handleBookAppointment}
-          className="text-custom-dark w-1/5 font-bold p-2 border-4 border-custom-dark rounded-xl hover:bg-custom-dark hover:text-custom-white transition duration-300 ease-in-out transform hover:scale-105"
+          disabled={isLoading}
+          className={`text-custom-dark font-bold p-2 border-4 border-custom-dark rounded-xl w-1/5 ${
+            isLoading
+              ? "bg-custom-dark text-custom-white cursor-not-allowed"
+              : "hover:bg-custom-dark hover:text-custom-white transition duration-300 ease-in-out transform hover:scale-105"
+          }`}
         >
-          Book Appointment
+          {isLoading ? (
+            <i className="fa fa-spinner fa-spin"></i>
+          ) : (
+            "Make Appointment"
+          )}
         </button>
       </div>
 
