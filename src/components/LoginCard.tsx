@@ -128,7 +128,7 @@ export default function LoginCard() {
           <div className="flex items-center justify-between">
             <button
               type="submit"
-              className="w-full text-custom-dark font-bold p-2 text-sm border-4 border-custom-dark rounded-xl hover:bg-custom-silver hover:text-custom-white transition duration-300 ease-in-out transform hover:scale-105"
+              className="w-full text-custom-dark font-bold p-2 text-sm border-4 border-custom-dark rounded-xl hover:bg-custom-dark hover:text-custom-white transition duration-300 ease-in-out transform hover:scale-105"
             >
               Login
             </button>
