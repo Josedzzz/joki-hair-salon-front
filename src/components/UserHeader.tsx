@@ -62,7 +62,7 @@ export default function UserHeader({
           onClick={() => navigate("/login")}
           className={linkClasses("log-out")}
         >
-          Log out
+          <i className="fa-solid fa-arrow-right-from-bracket"></i>
         </a>
       </nav>
     </header>
