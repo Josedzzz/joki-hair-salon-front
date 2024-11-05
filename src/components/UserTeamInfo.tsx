@@ -10,7 +10,6 @@ enum Skills {
   HIGHLIGHTS = "Highlights",
   HAIR_TREATMENT = "Hair Treatment",
   EXTENSIONS = "Extensions",
-  HAIRS_STRAIGHTENING = "Hair Straightening",
 }
 
 // Props interface for the component

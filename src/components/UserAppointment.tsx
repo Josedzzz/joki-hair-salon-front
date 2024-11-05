@@ -14,7 +14,6 @@ enum Services {
   HIGHLIGHTS = "Highlights",
   HAIR_TREATMENT = "Hair Treatment",
   EXTENSIONS = "Extensions",
-  HAIRS_STRAIGHTENING = "Hair Straightening",
 }
 
 export default function UserAppointment() {
