@@ -4,6 +4,7 @@ import UserAppointment from "./UserAppointment";
 import UserHistory from "./UserHistory";
 import UserProducts from "./UserProducts";
 import UserTeam from "./UserTeam";
+import UserCart from "./UserCart";
 
 export default function UserDashboard() {
   // state to set the content
@@ -24,6 +25,7 @@ export default function UserDashboard() {
       {content === "history" && <UserHistory />}
       {content === "products" && <UserProducts />}
       {content === "team" && <UserTeam />}
+      {content === "cart" && <UserCart />}
     </div>
   );
 }
