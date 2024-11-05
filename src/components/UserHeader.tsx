@@ -65,6 +65,12 @@ export default function UserHeader({
           Cart
         </a>
         <a
+          onClick={() => toggleContent("account")}
+          className={linkClasses("account")}
+        >
+          <i className="fa-regular fa-user"></i>
+        </a>
+        <a
           onClick={() => navigate("/login")}
           className={linkClasses("log-out")}
         >
