@@ -47,12 +47,13 @@ export default function LoginRestoreCard() {
     }
 
     const credentials = {
+      email,
       verificationCode,
       newPassword,
     };
 
     try {
-      const response = await recoverPasswordCode(email, credentials);
+      const response = await recoverPasswordCode(credentials);
       setMesssage(response.message);
       // reload the page after successfully password update
       window.location.reload();

@@ -14,6 +14,7 @@ interface SendVerificationCodeCredentials {
 }
 
 interface RecoverPasswordCredentials {
+  email: string;
   verificationCode: string;
   newPassword: string;
 }
@@ -153,13 +154,11 @@ export const sendRecoverPasswordCode = async (
  * @returns the response interface with the message
  */
 export const recoverPasswordCode = async (
-  email: string,
   credentials: RecoverPasswordCredentials,
 ): Promise<ApiResponse> => {
   try {
-    console.log(email);
     const response = await fetch(
-      `http://localhost:8080/api/auth/${email}/update-password`,
+      `http://localhost:8080/api/auth/update-password`,
       {
         method: "POST",
         headers: {
