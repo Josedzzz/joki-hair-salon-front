@@ -222,18 +222,22 @@ export default function UserAppointment() {
 
       {/* Book appointment */}
       <div className="flex flex-col gap-4">
-        <label className="block font-semibold">Appointment date:</label>
+        <label className="block font-semibold text-custom-dark">
+          Appointment date:
+        </label>
+
         <input
           type="datetime-local"
           value={selectedHour}
           onChange={(e) => setSelectedHour(e.target.value)}
           min={startDate}
-          className="bg-custom-white text-custom-dark w-1/5 px-3 py-2 rounded-lg ring-2 ring-custom-dark focus:ring-custom-silver focus:outline-none"
+          className="bg-custom-white text-custom-dark w-full sm:w-1/2 md:w-1/3 lg:w-1/5 px-3 py-2 rounded-lg ring-2 ring-custom-dark focus:ring-custom-silver focus:outline-none"
         />
+
         <button
           onClick={handleBookAppointment}
           disabled={isLoading}
-          className={`text-custom-dark font-bold p-2 border-4 border-custom-dark rounded-xl w-1/5 ${
+          className={`text-custom-dark font-bold p-2 border-4 border-custom-dark rounded-xl w-full sm:w-1/2 md:w-1/3 lg:w-1/5 ${
             isLoading
               ? "bg-custom-dark text-custom-white cursor-not-allowed"
               : "hover:bg-custom-dark hover:text-custom-white transition duration-300 ease-in-out transform hover:scale-105"
