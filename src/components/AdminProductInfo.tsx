@@ -42,7 +42,6 @@ export default function AdminProductInfo({
     ) || [];
   const [categories, setCategories] = useState<string[]>(initialCategories);
   const [brand, setBrand] = useState(product?.brand || "");
-  const [rating, setRating] = useState(product?.rating || 0);
   const [images, setImages] = useState(product?.images || [""]);
   const [message, setMesssage] = useState("");
 
@@ -394,20 +393,6 @@ export default function AdminProductInfo({
               placeholder="Enter brand"
               value={brand}
               onChange={(e) => setBrand(e.target.value)}
-            />
-          </div>
-
-          <div className="mb-4">
-            <label className="block text-custom-dark mb-2">
-              <i className="fa-solid fa-star mr-1"></i> Rating
-            </label>
-            <input
-              disabled
-              type="number"
-              className="bg-custom-white text-custom-dark w-full px-3 py-2 rounded-lg ring-2 ring-custom-dark focus:ring-custom-silver focus:outline-none"
-              placeholder="Enter rating"
-              value={rating}
-              onChange={(e) => setRating(Number(e.target.value))}
             />
           </div>
 
