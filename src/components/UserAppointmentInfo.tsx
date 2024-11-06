@@ -145,13 +145,6 @@ export default function UserAppointmentInfo({
         </div>
 
         <div className="mb-4">
-          <label className="block text-custom-dark mb-2">Status</label>
-          <p className="bg-custom-white text-custom-dark w-full px-3 py-2 rounded-lg ring-2 ring-custom-dark">
-            {appointment.status}
-          </p>
-        </div>
-
-        <div className="mb-4">
           <label className="block text-custom-dark mb-2">Price</label>
           <p className="bg-custom-white text-custom-dark w-full px-3 py-2 rounded-lg ring-2 ring-custom-dark">
             ${appointment.price.toFixed(2)}
@@ -203,18 +196,18 @@ export default function UserAppointmentInfo({
 
       <div className="mt-4">
         {isPastAppointment ? (
-          <div className="flex items-center gap-2">
+          <div className="flex flex-col sm:flex-row items-center gap-2">
             <input
               type="text"
               value={reviewComment}
               onChange={(e) => setReviewComment(e.target.value)}
               placeholder="Write your review"
-              className="bg-custom-white text-custom-dark px-3 py-2 border-2 border-custom-dark rounded-lg w-full md:w-auto"
+              className="bg-custom-white text-custom-dark px-3 py-2 border-2 border-custom-dark rounded-lg w-full sm:w-1/2 md:w-1/3 lg:w-1/4"
             />
             <select
               value={reviewRating ?? ""}
               onChange={(e) => setReviewRating(Number(e.target.value))}
-              className="bg-custom-white text-custom-dark px-3 py-2 border-2 border-custom-dark rounded-lg"
+              className="bg-custom-white text-custom-dark px-3 py-2 border-2 border-custom-dark rounded-lg w-full sm:w-1/4 md:w-1/6 lg:w-1/5"
             >
               <option value="" disabled>
                 Rating
@@ -227,7 +220,7 @@ export default function UserAppointmentInfo({
             </select>
             <button
               onClick={handleLeaveReview}
-              className="text-custom-dark font-bold p-2 border-4 border-custom-dark rounded-xl hover:bg-custom-dark hover:text-custom-white transition duration-300 ease-in-out transform hover:scale-105"
+              className="text-custom-dark font-bold p-2 border-4 border-custom-dark rounded-xl w-full sm:w-auto md:w-auto hover:bg-custom-dark hover:text-custom-white transition duration-300 ease-in-out transform hover:scale-105"
             >
               Leave a Review
             </button>
@@ -236,7 +229,7 @@ export default function UserAppointmentInfo({
           <button
             onClick={handleCancelAppointment}
             disabled={isLoading}
-            className={`text-custom-dark font-bold p-2 border-4 border-custom-dark rounded-xl w-1/5 ${
+            className={`text-custom-dark font-bold p-2 border-4 border-custom-dark rounded-xl w-full sm:w-1/4 md:w-auto ${
               isLoading
                 ? "bg-custom-dark text-custom-white cursor-not-allowed"
                 : "hover:bg-custom-dark hover:text-custom-white transition duration-300 ease-in-out transform hover:scale-105"
