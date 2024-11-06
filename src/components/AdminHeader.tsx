@@ -52,6 +52,12 @@ export default function AdminHeader({
           Appointments
         </a>
         <a
+          onClick={() => toggleContent("statistics")}
+          className={linkClasses("statistics")}
+        >
+          Statistics
+        </a>
+        <a
           onClick={() => navigate("/login")}
           className={linkClasses("log-out")}
         >

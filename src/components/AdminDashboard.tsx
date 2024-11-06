@@ -3,6 +3,7 @@ import AdminHeader from "./AdminHeader";
 import AdminAppointment from "./AdminAppointment";
 import AdminEmployee from "./AdminEmployee";
 import AdminProduct from "./AdminProduct";
+import AdminStatistics from "./AdminStatistics";
 
 export default function AdminDashboard() {
   // state to set the content
@@ -22,6 +23,7 @@ export default function AdminDashboard() {
       {content === "employee" && <AdminEmployee />}
       {content === "product" && <AdminProduct />}
       {content === "appointment" && <AdminAppointment />}
+      {content === "statistics" && <AdminStatistics />}
     </div>
   );
 }
