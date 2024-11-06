@@ -28,7 +28,7 @@ export default function UserTeamCard({ employee, onClick }: UserTeamCardProps) {
   return (
     <div
       onClick={onClick}
-      className="bg-custom-platinum rounded-2xl shadow-lg overflow-hidden max-w-xs border-4 border-transparent hover:border-custom-dark transition duration-300 ease-in-out transform hover:scale-105"
+      className="bg-custom-platinum rounded-2xl shadow-lg overflow-hidden max-w-xs border-4 border-transparent hover:border-custom-dark transition duration-300 ease-in-out transform hover:scale-105 bounce-in"
     >
       <div className="p-4">
         <h3 className="text-lg font-bold text-custom-dark mb-2">

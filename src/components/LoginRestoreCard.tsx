@@ -77,7 +77,7 @@ export default function LoginRestoreCard() {
 
   return (
     <main className="flex items-center justify-center min-h-[calc(100vh-4rem)] p-2">
-      <div className="w-full max-w-md bg-custom-white p-6 shadow-lg rounded-lg">
+      <div className="w-full max-w-md bg-custom-white p-6 shadow-lg rounded-lg bounce-in">
         <h2 className="text-xl font-bold text-custom-dark text-center mb-4">
           Restore Password
         </h2>
@@ -118,7 +118,7 @@ export default function LoginRestoreCard() {
 
         {/* Show this part only after the verification code is sent */}
         {isCodeSent && (
-          <form onSubmit={handleRecoverPassword}>
+          <form onSubmit={handleRecoverPassword} className="bounce-in">
             <div className="mb-6">
               <label className="block text-custom-dark mb-2">
                 <i className="fa-solid fa-key"></i> Verification Code

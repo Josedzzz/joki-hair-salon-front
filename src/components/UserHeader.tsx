@@ -25,7 +25,7 @@ export default function UserHeader({
     }`;
 
   return (
-    <header className="h-16 w-full bg-custom-white flex justify-between items-center p-2 sm:px-14">
+    <header className="h-16 w-full bg-custom-white flex justify-between items-center p-2 sm:px-14 fade-in">
       <div className="flex items-center space-x-1 gap-3">
         <h1 className="text-xl sm:text-3xl md:text-4xl font-bold text-custom-dark">
           Hair Salon

@@ -115,8 +115,8 @@ export default function UserAccount() {
   }, []);
 
   return (
-    <div className="flex items-center justify-center min-h-[calc(100vh-4rem)] bg-custom-white p-6">
-      <div className="w-full max-w-lg">
+    <div className="flex items-center justify-center min-h-[calc(100vh-4rem)] bg-custom-white p-6 slide-in-left">
+      <div className="w-full max-w-lg bounce-in">
         <h1 className="text-2xl font-bold text-custom-dark mb-6 text-center">
           Account Information
         </h1>

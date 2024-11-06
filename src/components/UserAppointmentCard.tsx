@@ -37,7 +37,7 @@ export default function UserAppointmentCard({
   return (
     <div
       onClick={onClick}
-      className="relative rounded-xl overflow-hidden max-w-xs p-4 h-64 bg-custom-platinum border-4 border-transparent hover:border-black transition-all duration-300 ease-in-out transform hover:scale-105"
+      className="relative rounded-xl overflow-hidden max-w-xs p-4 h-64 bg-custom-platinum border-4 border-transparent hover:border-black transition-all duration-300 ease-in-out transform hover:scale-105 bounce-in"
     >
       <div className="flex flex-col h-full justify-between">
         {/* Appointment Date and Time */}

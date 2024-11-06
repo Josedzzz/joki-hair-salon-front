@@ -246,7 +246,7 @@ export default function AdminEmployeeInfo({
   };
 
   return (
-    <div className="bg-custom-platinum rounded-lg shadow-lg p-6 max-w-5xl mx-auto">
+    <div className="bg-custom-platinum rounded-lg shadow-lg p-6 max-w-5xl mx-auto fade-in">
       <button
         onClick={onBack}
         className="text-custom-dark font-bold p-2 border-4 border-custom-dark rounded-xl hover:bg-custom-dark hover:text-custom-white transition duration-300 ease-in-out mb-4 transform hover:scale-105"

@@ -133,7 +133,7 @@ export default function UserAppointment() {
   };
 
   return (
-    <div className="bg-custom-white w-full min-h-[calc(100vh-4rem)] p-6">
+    <div className="bg-custom-white w-full min-h-[calc(100vh-4rem)] p-6 slide-in-left">
       <h2 className="text-2xl font-bold mb-4">Book an Appointment</h2>
 
       {/* Date Selection */}

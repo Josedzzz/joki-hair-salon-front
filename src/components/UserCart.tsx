@@ -72,7 +72,7 @@ export default function UserCart() {
   }, []);
 
   return (
-    <div className="bg-custom-white w-full min-h-[calc(100vh-4rem)] p-6">
+    <div className="bg-custom-white w-full min-h-[calc(100vh-4rem)] p-6 slide-in-left">
       <div className="px-4 py-6">
         <div className="flex flex-row items-center gap-4 mb-6">
           <h2 className="text-2xl font-bold text-custom-dark">

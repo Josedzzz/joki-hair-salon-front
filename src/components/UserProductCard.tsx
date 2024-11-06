@@ -13,7 +13,7 @@ export default function UserProductCard({
   return (
     <div
       onClick={onClick}
-      className="relative rounded-2xl shadow-lg overflow-hidden max-w-xs h-72 bg-cover bg-center border-4 border-transparent hover:border-custom-dark transition duration-300 ease-in-out transform hover:scale-105"
+      className="relative rounded-2xl shadow-lg overflow-hidden max-w-xs h-72 bg-cover bg-center border-4 border-transparent hover:border-custom-dark transition duration-300 ease-in-out transform hover:scale-105 bounce-in"
       style={{ backgroundImage: `url(${product.images[0]})` }}
     >
       {/* Overlay to darken background for better text visibility */}

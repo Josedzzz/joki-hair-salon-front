@@ -1,6 +1,6 @@
 export default function AboutCard() {
   return (
-    <main className="flex items-center justify-center min-h-[calc(100vh-4rem)] p-2">
+    <main className="flex items-center justify-center min-h-[calc(100vh-4rem)] p-2 slide-in-left">
       <div className="w-full max-w-md bg-custom-white p-8 shadow-lg rounded-lg transform transition duration-500 ease-in-out hover:scale-105 hover:shadow-2xl">
         <div className="flex items-center space-x-1 gap-3 mb-2">
           <h1 className="text-xl sm:text-3xl md:text-4xl font-bold text-custom-silver">

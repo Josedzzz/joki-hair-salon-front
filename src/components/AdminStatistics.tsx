@@ -39,7 +39,7 @@ export default function AdminStatistics() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center bg-custom-white w-full min-h-[calc(100vh-4rem)] p-6">
+    <div className="flex flex-col items-center justify-center bg-custom-white w-full min-h-[calc(100vh-4rem)] p-6 slide-in-left">
       <h1 className="text-2xl font-bold text-custom-dark mb-6">Statistics</h1>
 
       {/* Date Input Fields */}
@@ -83,7 +83,7 @@ export default function AdminStatistics() {
         {reports.map((report, index) => (
           <div
             key={index}
-            className="bg-custom-white p-4 rounded-lg border-2 border-custom-dark shadow-md"
+            className="bg-custom-white p-4 rounded-lg border-2 border-custom-dark shadow-md bounce-in"
           >
             <h3 className="text-lg font-bold text-custom-dark mb-2">
               {report.serviceType}

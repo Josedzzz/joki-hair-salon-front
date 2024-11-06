@@ -70,7 +70,7 @@ export default function AdminProduct() {
   }, []);
 
   return (
-    <div className="bg-custom-white w-full min-h-[calc(100vh-4rem)] p-6 ">
+    <div className="bg-custom-white w-full min-h-[calc(100vh-4rem)] p-6 slide-in-left">
       {!selectedProduct && !isAddingNewProduct ? (
         <div className="px-4 py-6">
           <div className="flex flex-row items-center gap-4 mb-6">
