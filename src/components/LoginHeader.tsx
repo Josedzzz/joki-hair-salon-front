@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 // define the type for the header props
 type LoginHeaderProps = {
   toggleCard: (cardName: string) => void;
@@ -7,10 +5,8 @@ type LoginHeaderProps = {
 };
 
 export default function LoginHeader({ toggleCard, card }: LoginHeaderProps) {
-  const [menuOpen, setMenuOpen] = useState(false);
-
   /**
-   * depends on the link selected give to the element diferent styles
+   * depends on the link selected give to the element different styles
    * @param link the selected cardName
    * @returns the tailwind classes to be added
    */
@@ -18,7 +14,7 @@ export default function LoginHeader({ toggleCard, card }: LoginHeaderProps) {
     `hover:text-custom-silver hover:scale-105 text-sm sm:text-md md:text-lg transition duration-300 ease-in-out font-bold ${
       card === link
         ? "border-b-2 border-custom-silver text-custom-silver"
-        : "text-custom-dark hover:text-custom-silver text-sm sm:text-md md:text-lg"
+        : "text-custom-dark hover:text-custom-silver"
     }`;
 
   return (
@@ -30,18 +26,8 @@ export default function LoginHeader({ toggleCard, card }: LoginHeaderProps) {
         <i className="fa-solid fa-scissors text-xl sm:text-3xl md:text-4xl text-custom-silver"></i>
       </div>
 
-      <button
-        onClick={() => setMenuOpen(!menuOpen)}
-        className="block sm:hidden text-custom-dark focus:outline-none"
-      >
-        <i className="fa-solid fa-bars text-2xl"></i>
-      </button>
-
-      <nav
-        className={`${
-          menuOpen ? "block" : "hidden"
-        } sm:flex space-x-4 sm:space-x-8 absolute sm:relative top-16 sm:top-auto left-0 w-full sm:w-auto bg-custom-white sm:bg-transparent p-4 sm:p-0`}
-      >
+      {/* Navigation Links with Horizontal Scroll on Small Screens */}
+      <nav className="flex overflow-x-auto space-x-4 sm:space-x-8">
         <a
           onClick={() => toggleCard("aboutus")}
           className={linkClasses("aboutus")}
