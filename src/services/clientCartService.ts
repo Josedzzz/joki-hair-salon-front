@@ -39,7 +39,7 @@ export const getClientCart = async (
 ): Promise<ApiResponseCartProducts> => {
   try {
     const response = await fetch(
-      `http://localhost:8080/api/client/load-shopping-cart/${clientId}`,
+      `https://joki-hair-salon-production.up.railway.app/api/client/load-shopping-cart/${clientId}`,
       {
         method: "GET",
         headers: {
@@ -78,7 +78,7 @@ export const addProductToCart = async (
 ): Promise<ApiResponse> => {
   try {
     const response = await fetch(
-      `http://localhost:8080/api/client/${clientId}/add-product-sp`,
+      `https://joki-hair-salon-production.up.railway.app/api/client/${clientId}/add-product-sp`,
       {
         method: "POST",
         headers: {
@@ -120,7 +120,7 @@ export const deleteProductFromCart = async (
 ): Promise<ApiResponse> => {
   try {
     const response = await fetch(
-      `http://localhost:8080/api/client/${clientId}/delete-product-sp`,
+      `https://joki-hair-salon-production.up.railway.app/api/client/${clientId}/delete-product-sp`,
       {
         method: "POST",
         headers: {

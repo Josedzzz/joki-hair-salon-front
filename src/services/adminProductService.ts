@@ -47,7 +47,7 @@ export const getAllProducts = async (
 ): Promise<ApiResponseProducts> => {
   try {
     const response = await fetch(
-      `http://localhost:8080/api/admin/get-products?page=${page}&size=8`,
+      `https://joki-hair-salon-production.up.railway.app/api/admin/get-products?page=${page}&size=8`,
       {
         method: "GET",
         headers: {
@@ -86,7 +86,7 @@ export const createProduct = async (
 ): Promise<ApiResponse> => {
   try {
     const response = await fetch(
-      `http://localhost:8080/api/admin/create-product`,
+      `https://joki-hair-salon-production.up.railway.app/api/admin/create-product`,
       {
         method: "POST",
         headers: {
@@ -128,7 +128,7 @@ export const updateProduct = async (
 ): Promise<ApiResponse> => {
   try {
     const response = await fetch(
-      `http://localhost:8080/api/admin/update-product/${productId}`,
+      `https://joki-hair-salon-production.up.railway.app/api/admin/update-product/${productId}`,
       {
         method: "POST",
         headers: {
@@ -168,7 +168,7 @@ export const deleteProduct = async (
 ): Promise<ApiResponse> => {
   try {
     const response = await fetch(
-      `http://localhost:8080/api/admin/delete-product/${productId}`,
+      `https://joki-hair-salon-production.up.railway.app/api/admin/delete-product/${productId}`,
       {
         method: "POST",
         headers: {

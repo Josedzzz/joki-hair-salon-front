@@ -33,7 +33,7 @@ export const getAvailableHours = async (
 ): Promise<ApiResponseAvailableHours> => {
   try {
     const response = await fetch(
-      `http://localhost:8080/api/client/get-available-hours?startDate=${credentials.startDate}&endDate=${credentials.endDate}&services=${credentials.services}`,
+      `https://joki-hair-salon-production.up.railway.app/api/client/get-available-hours?startDate=${credentials.startDate}&endDate=${credentials.endDate}&services=${credentials.services}`,
       {
         method: "GET",
         headers: {
@@ -74,7 +74,7 @@ export const bookAppointment = async (
 ): Promise<ApiResponse> => {
   try {
     const response = await fetch(
-      `http://localhost:8080/api/client/${clientId}/book-appointment`,
+      `https://joki-hair-salon-production.up.railway.app/api/client/${clientId}/book-appointment`,
       {
         method: "POST",
         headers: {

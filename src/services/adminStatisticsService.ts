@@ -31,7 +31,7 @@ export const getReport = async (
 ): Promise<ApiResponseReports> => {
   try {
     const response = await fetch(
-      `http://localhost:8080/api/admin/get-general-report?startDate=${startDate}&endDate=${endDate}`,
+      `https://joki-hair-salon-production.up.railway.app/api/admin/get-general-report?startDate=${startDate}&endDate=${endDate}`,
       {
         method: "GET",
         headers: {

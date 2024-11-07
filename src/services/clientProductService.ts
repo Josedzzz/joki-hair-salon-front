@@ -36,7 +36,7 @@ export const getAllProducts = async (
 ): Promise<ApiResponseProducts> => {
   try {
     const response = await fetch(
-      `http://localhost:8080/api/client/load-products?page=${page}&size=8`,
+      `https://joki-hair-salon-production.up.railway.app/api/client/load-products?page=${page}&size=8`,
       {
         method: "GET",
         headers: {

@@ -35,7 +35,7 @@ export const getAllTeam = async (
 ): Promise<ApiResponseEmployees> => {
   try {
     const response = await fetch(
-      `http://localhost:8080/api/client/get-all-employees?page=${page}&size=8`,
+      `https://joki-hair-salon-production.up.railway.app/api/client/get-all-employees?page=${page}&size=8`,
       {
         method: "GET",
         headers: {

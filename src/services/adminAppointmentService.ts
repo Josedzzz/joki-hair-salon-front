@@ -56,7 +56,7 @@ export const getAllAppointments = async (
 ): Promise<ApiResponseAppointments> => {
   try {
     const response = await fetch(
-      `http://localhost:8080/api/admin/get-all-appointments?page=${page}&size=8`,
+      `https://joki-hair-salon-production.up.railway.app/api/admin/get-all-appointments?page=${page}&size=8`,
       {
         method: "GET",
         headers: {
@@ -95,7 +95,7 @@ export const getClientInfo = async (
 ): Promise<ApiResponseClient> => {
   try {
     const response = await fetch(
-      `http://localhost:8080/api/admin/get-client-info/${clientId}`,
+      `https://joki-hair-salon-production.up.railway.app/api/admin/get-client-info/${clientId}`,
       {
         method: "GET",
         headers: {
@@ -134,7 +134,7 @@ export const getEmployeeInfo = async (
 ): Promise<ApiResponseEmployee> => {
   try {
     const response = await fetch(
-      `http://localhost:8080/api/admin/get-employee-info/${employeeId}`,
+      `https://joki-hair-salon-production.up.railway.app/api/admin/get-employee-info/${employeeId}`,
       {
         method: "GET",
         headers: {

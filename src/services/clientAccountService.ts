@@ -32,7 +32,7 @@ export const getAccountInfo = async (
 ): Promise<ApiResponseAccount> => {
   try {
     const response = await fetch(
-      `http://localhost:8080/api/client/${clientId}/account-information`,
+      `https://joki-hair-salon-production.up.railway.app/api/client/${clientId}/account-information`,
       {
         method: "GET",
         headers: {
@@ -73,7 +73,7 @@ export const updateAccount = async (
 ): Promise<ApiResponse> => {
   try {
     const response = await fetch(
-      `http://localhost:8080/api/client/${clientId}/update-client`,
+      `https://joki-hair-salon-production.up.railway.app/api/client/${clientId}/update-client`,
       {
         method: "POST",
         headers: {
@@ -111,7 +111,7 @@ export const updateAccount = async (
 export const deleteAccount = async (clientId: string): Promise<ApiResponse> => {
   try {
     const response = await fetch(
-      `http://localhost:8080/api/client/${clientId}/delete-account`,
+      `https://joki-hair-salon-production.up.railway.app/api/client/${clientId}/delete-account`,
       {
         method: "POST",
         headers: {

@@ -35,7 +35,7 @@ export const signUp = async (
 ): Promise<ApiResponse> => {
   try {
     const response = await fetch(
-      `http://localhost:8080/api/auth/client/register`,
+      `https://joki-hair-salon-production.up.railway.app/api/auth/client/register`,
       {
         method: "POST",
         headers: {
@@ -77,7 +77,7 @@ export const login = async (
 ): Promise<ApiResponse> => {
   try {
     const response = await fetch(
-      `http://localhost:8080/api/auth/${typeUser}/login`,
+      `https://joki-hair-salon-production.up.railway.app/api/auth/${typeUser}/login`,
       {
         method: "POST",
         headers: {
@@ -117,7 +117,7 @@ export const sendRecoverPasswordCode = async (
 ): Promise<ApiResponse> => {
   try {
     const response = await fetch(
-      `http://localhost:8080/api/auth/send-password-reset-code`,
+      `https://joki-hair-salon-production.up.railway.app/api/auth/send-password-reset-code`,
       {
         method: "POST",
         headers: {
@@ -158,7 +158,7 @@ export const recoverPasswordCode = async (
 ): Promise<ApiResponse> => {
   try {
     const response = await fetch(
-      `http://localhost:8080/api/auth/update-password`,
+      `https://joki-hair-salon-production.up.railway.app/api/auth/update-password`,
       {
         method: "POST",
         headers: {

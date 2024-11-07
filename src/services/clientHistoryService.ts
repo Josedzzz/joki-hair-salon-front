@@ -53,7 +53,7 @@ export const getAllClientAppointments = async (
 ): Promise<ApiResponseAppointments> => {
   try {
     const response = await fetch(
-      `http://localhost:8080/api/client/${clientId}/appointment-history?page=${page}&size=8`,
+      `https://joki-hair-salon-production.up.railway.app/api/client/${clientId}/appointment-history?page=${page}&size=8`,
       {
         method: "GET",
         headers: {
@@ -92,7 +92,7 @@ export const cancelAppointment = async (
 ): Promise<ApiResponse> => {
   try {
     const response = await fetch(
-      `http://localhost:8080/api/client/${clientId}/cancel-appointment/${appointmentId}`,
+      `https://joki-hair-salon-production.up.railway.app/api/client/${clientId}/cancel-appointment/${appointmentId}`,
       {
         method: "POST",
         headers: {
@@ -133,7 +133,7 @@ export const leaveReview = async (
 ): Promise<ApiResponse> => {
   try {
     const response = await fetch(
-      `http://localhost:8080/api/client/${appointmentId}/leave-review`,
+      `https://joki-hair-salon-production.up.railway.app/api/client/${appointmentId}/leave-review`,
       {
         method: "POST",
         headers: {
@@ -173,7 +173,7 @@ export const getEmployee = async (
 ): Promise<ApiResponseEmployee> => {
   try {
     const response = await fetch(
-      `http://localhost:8080/api/client/get-employee/${employeeId}`,
+      `https://joki-hair-salon-production.up.railway.app/api/client/get-employee/${employeeId}`,
       {
         method: "GET",
         headers: {
