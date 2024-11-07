@@ -7,6 +7,7 @@ export default function SignupCard() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   /**
@@ -44,6 +45,7 @@ export default function SignupCard() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setMessage("");
+    setIsLoading(true);
     try {
       // validation before submission
       if (!validateEmail(email)) {
@@ -69,6 +71,8 @@ export default function SignupCard() {
       } else {
         setMessage("An unexpected error occurred.");
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -133,9 +137,17 @@ export default function SignupCard() {
           <div className="flex items-center justify-between">
             <button
               type="submit"
-              className="w-full text-custom-dark font-bold p-2 text-sm border-4 border-custom-dark rounded-xl hover:bg-custom-dark hover:text-custom-white transition duration-300 ease-in-out transform hover:scale-105"
+              className={`text-custom-dark font-bold p-2 border-4 border-custom-dark rounded-xl w-full ${
+                isLoading
+                  ? "bg-custom-dark text-custom-white cursor-not-allowed"
+                  : "hover:bg-custom-dark hover:text-custom-white transition duration-300 ease-in-out transform hover:scale-105"
+              }`}
             >
-              Sign up
+              {isLoading ? (
+                <i className="fa fa-spinner fa-spin"></i>
+              ) : (
+                "Sign up"
+              )}
             </button>
           </div>
         </form>

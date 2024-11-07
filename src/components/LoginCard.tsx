@@ -10,6 +10,7 @@ export default function LoginCard() {
   const [message, setMessage] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
   const [showRecoverPassword, setShowRecoverPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   /**
    * Helper function to validate the admin username (at least 3 characters)
@@ -36,6 +37,7 @@ export default function LoginCard() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setMessage("");
+    setIsLoading(true);
     try {
       // validation before submission
       if (!validateUsername(username)) {
@@ -64,6 +66,8 @@ export default function LoginCard() {
       } else {
         setMessage("An unexpected error occurred.");
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -128,9 +132,13 @@ export default function LoginCard() {
           <div className="flex items-center justify-between">
             <button
               type="submit"
-              className="w-full text-custom-dark font-bold p-2 text-sm border-4 border-custom-dark rounded-xl hover:bg-custom-dark hover:text-custom-white transition duration-300 ease-in-out transform hover:scale-105"
+              className={`text-custom-dark font-bold p-2 border-4 border-custom-dark rounded-xl w-full ${
+                isLoading
+                  ? "bg-custom-dark text-custom-white cursor-not-allowed"
+                  : "hover:bg-custom-dark hover:text-custom-white transition duration-300 ease-in-out transform hover:scale-105"
+              }`}
             >
-              Login
+              {isLoading ? <i className="fa fa-spinner fa-spin"></i> : "Login"}
             </button>
           </div>
         </form>
