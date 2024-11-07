@@ -6,6 +6,7 @@ export default function AdminStatistics() {
   const [endDate, setEndDate] = useState("");
   const [reports, setReports] = useState<ServiceReport[]>([]);
   const [message, setMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   // Validación de fechas
   const validateDates = () => {
@@ -22,7 +23,7 @@ export default function AdminStatistics() {
 
   const handleGetReport = async () => {
     setMessage("");
-
+    setIsLoading(true);
     if (!validateDates()) return;
 
     try {
@@ -35,6 +36,8 @@ export default function AdminStatistics() {
           ? error.message
           : "An unexpected error occurred.",
       );
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -67,9 +70,13 @@ export default function AdminStatistics() {
         {/* Generate Report Button */}
         <button
           onClick={handleGetReport}
-          className="mt-6 text-custom-dark font-bold p-2 border-4 border-custom-dark rounded-xl hover:bg-custom-dark hover:text-custom-white transition duration-300 ease-in-out transform hover:scale-105"
+          className={`text-custom-dark font-bold p-2 border-4 border-custom-dark rounded-xl w-full ${
+            isLoading
+              ? "bg-custom-dark text-custom-white cursor-not-allowed"
+              : "hover:bg-custom-dark hover:text-custom-white transition duration-300 ease-in-out transform hover:scale-105"
+          }`}
         >
-          Generate Report
+          {isLoading ? <i className="fa fa-spinner fa-spin"></i> : "Generate"}
         </button>
       </div>
 
