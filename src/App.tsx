@@ -14,7 +14,7 @@ import AdminDashboard from "./components/AdminDashboard";
  * @returns
  */
 function PrivateRouteUser({ children }: { children: JSX.Element }) {
-  const userId = localStorage.getItem("userId");
+  const userId = localStorage.getItem("clientId");
   return userId ? children : <Navigate to={"/login"} />;
 }
 
